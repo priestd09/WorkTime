@@ -5,13 +5,22 @@
 	</cffunction>
 	<cffunction name="index">
 	
-		<cfset getEmployeesBySkill()>
+		<cfset add()>
 	
 	</cffunction>
 	
 	<cffunction name="add"><!--- add the skills, name, email and time--->
-		<cfset test= model("business")>
-		<cfset testFind = test.findAll(include="Business")>
+		
+		<!--- use the form params :) --->
+		
+		<cfset newEmployee = model("employees").new()>
+		
+		<cfset newEmployee.businessid = 1>
+		<cfset newEmployee.email = "jlvanderslice@gmail.com">
+		<cfset newEmployee.name = "Jim Vanderslice">
+		<cfset newEmployee.time = "full">
+		<cfset newEmployee.save()>
+		
 	</cffunction>
 	<cffunction name="edit"><!--- returns the name, email, time and skills--->
 		<cfset test= model("employees")>
@@ -23,18 +32,26 @@
 	</cffunction>
 	
 	<cffunction name="getEmployees">
+		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
 		<cfset test= model("employees")>
-		<cfset testEmps = test.findAll(include="Business")>
+		<cfset employees = test.findAllByBusinessid(value=id, include="Business")>
+		<!--- This one also gets what it says it will :) --->
 	</cffunction>
 	
 	<cffunction name="getEmployeesBySkill">
+		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
 		<cfset test= model("employees")>
-		<cfset testEmps = test.findAll(include="EmployeeSkills(skill)")>
+		<cfset x = test.findAllBySkillidAndBusinessid(value="1,2",include="EmployeeSkills(skill)")>
+		<!--- This gets what it says it gets :) --->
 	</cffunction>
+	
 	<cffunction name="getSkills">
-		<cfset test= model("employees")>
-		<cfset testFind = test.findAll(include="Business")>
+		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
+		<cfset test= model("skills")>
+		<cfset skills = test.findAllByBusinessid(value=id)>
 	</cffunction>
+	
+	
 	<cffunction name="addSkills">
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>

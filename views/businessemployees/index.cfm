@@ -1,3 +1,7 @@
 <h1>HEY!</h1>
+<cfoutput>
 
-<cfdump var="#testEmps#">
+#errorMessagesFor("newEmployee")#
+
+</cfoutput>
+
