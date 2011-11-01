@@ -1,28 +1,27 @@
 <cfcomponent extends="Controller">
 	<cffunction name="init">
-		<cfset test= model("employees")><!--- Should be all lowercase and plural--->
-		<cfset testFind = test.findAll(include="Business")><!--- should be Camel Case and singular--->
+		<!----<cfset test= model("employees")>Should be all lowercase and plural--->
+		
 	</cffunction>
 	<cffunction name="index">
-	
-		<cfset add()>
+		<cfset newEmployee=model("employees").new()>
+		<cfset newSkills=model("skills").new()>
+			<cfset getSkills(1)>
 	
 	</cffunction>
 	
-	<cffunction name="add"><!--- add the skills, name, email and time--->
-		
-		<!--- use the form params :) --->
-		
-		<cfset newEmployee = model("employees").new()>
-		
-		<cfset newEmployee.businessid = 1>
-		<cfset newEmployee.email = "jlvanderslice@gmail.com">
-		<cfset newEmployee.name = "Jim Vanderslice">
-		<cfset newEmployee.time = "full">
-		<cfset newEmployee.save()>
-		
+	<cffunction name="add">
+		<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
+<!--- 		<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
+		<cfset params.newEmployee.businessid = 1>
+		<cfset model("employees").create(params.newEmployee)>
+		<cfset skills1 = model("employeeskill").findAllByEmployeesid(value=10, include="skill")>
+		<cfset index()>
+		<cfset renderPage(action="index")>
+<!--- 		<cfset skills = model("skills").findAllByBusinessid(value=1)> --->
 	</cffunction>
-	<cffunction name="edit"><!--- returns the name, email, time and skills--->
+
+	<cffunction name="edit">
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>
 	</cffunction>
@@ -32,7 +31,7 @@
 	</cffunction>
 	
 	<cffunction name="getEmployees">
-		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
+		<cfargument name="id" required="false" type="numeric" hint="business id goes here">
 		<cfset test= model("employees")>
 		<cfset employees = test.findAllByBusinessid(value=id, include="Business")>
 		<!--- This one also gets what it says it will :) --->
