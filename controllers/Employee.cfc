@@ -19,4 +19,8 @@
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>
 	</cffunction>
+	<cffunction name="getRequestByEmployee">
+		<cfset test= model("employees")>
+		<cfset testFind = test.findAll(include="Business")>
+	</cffunction>
 </cfcomponent>
