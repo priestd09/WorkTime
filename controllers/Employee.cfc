@@ -4,9 +4,11 @@
 		<cfset testFind = test.findAll(include="Business")><!--- should be Camel Case and singular--->
 	</cffunction>
 	<cffunction name="index">
-		<cfset setOverall()>
+		<cfset employeeid=10>
+		<cfset getOverall(employeeid)>
+		<cfset getRequestByEmployee(employeeid)>
 	</cffunction>
-	<cffunction name="setOverall">
+	<cffunction name="addOverall">
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>
 	</cffunction>
@@ -14,9 +16,9 @@
 		<cfset test2=model("employees")>
 		<cfset testFind2= test2.findAll(include="Business")>
 	</cffunction>
-		<cffunction name="getOverall">
-		<cfset test2=model("employees")>
-		<cfset testFind2= test2.findAll(include="Business")>
+	<cffunction name="getOverall" hint="returns all the days that the employee has set for their overall availibility">
+		<cfargument name="id" type="numeric" hint="the employee id">
+		<cfset days=model("overallavalibilitydays").findAllByEmployeeid(value=id)>
 	</cffunction>
 	<cffunction name="addRequest">
 		<cfset test= model("employees")>
@@ -30,8 +32,8 @@
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>
 	</cffunction>
-	<cffunction name="getRequestByEmployee">
-		<cfset test= model("employees")>
-		<cfset testFind = test.findAll(include="Business")>
+	<cffunction name="getRequestByEmployee" hint="returns the requests made by the that employee">
+		<cfargument name="id" type="numeric" hint="the employee id">
+		<cfset requests = model("offrequests").findAllByEmployeeid(value=id)>
 	</cffunction>
 </cfcomponent>
