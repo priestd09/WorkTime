@@ -1,11 +1,11 @@
 <cfcomponent extends="Controller">
-	<cffunction name="index">
+	<cffunction name="landing">
 	
 	
 	
 	
 	<cfset user= model("user").new()>
-	<cfset newUser= model("user").new()>
+	<cfset newUser= model("user").new(usertypeid=2)>
 	
 <!--- 			<cfset newUser=model("user").new()> --->
 		
@@ -20,7 +20,7 @@
 			<cfset newUser= model("user").new()>	
 			<cfset user = model("user").new(email=params.user.email)>
 			<cfset flashInsert(error="The email and password that you entered is not valid")>
-			<cfset renderPage(action="index")>
+			<cfset renderPage(action="landing")>
 		</cfif>	
 	</cffunction>
 	
@@ -32,8 +32,9 @@
 		
 		<cfif newUser.hasErrors()>
 			<cfset user= model("user").new()>
-			<cfset renderPage(action="index")>
+			<cfset renderPage(action="landing")>
 		<cfelse>
+			<cfset session.user.id = newUser.id>
 			<cfset flashInsert(success="You've successfully registered :)")>
 			<cfset redirectTo(controller="business", action="index")>
 		</cfif>
@@ -42,7 +43,7 @@
 	
 	<cffunction name="signout">
 		<cfset  StructDelete(session, "user")>
-		<cfset redirectTo(controller="home",action="index")>
+		<cfset redirectTo(controller="home",action="landing")>
 	
 	</cffunction>
 	

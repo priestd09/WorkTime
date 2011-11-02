@@ -1,8 +1,4 @@
 <cfcomponent extends="Controller">
-	<cffunction name="init">
-		<!----<cfset test= model("employees")>Should be all lowercase and plural--->
-		
-	</cffunction>
 	<cffunction name="index">
 		<cfset newEmployee=model("employees").findOneByid(10)>
 		<cfset newSkill = model("skills").findOneByName("Stock")>

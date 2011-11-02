@@ -1,8 +1,4 @@
 <cfcomponent extends="Controller">
-	<cffunction name="init">
-		<!---<cfset test= model("employees")> Should be all lowercase and plural--->
-		<!---<cfset testFind = test.findAll(include="Business")> should be Camel Case and singular--->
-	</cffunction>
 	
 	<cffunction name="index">
 		<cfset employeeid=10>
