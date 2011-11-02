@@ -7,7 +7,7 @@
 		
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  
   		
- 		<link rel="stylesheet" href="../../stylesheets/web.css" type="text/css" /> 
+ 		<link rel="stylesheet" href="/worktime/stylesheets/web.css" type="text/css" /> 
 
 		</head>
 		
@@ -16,7 +16,7 @@
 		<div id="content">
 			<div id="header">
 				
-				<div class="move"><p id="imgAdjLo"><img src="../../images/lo.jpg"/></p></div>
+				<div class="move"><p id="imgAdjLo"><img src="/worktime/images/lo.jpg"/></p></div>
 				<div class="move" >
 					<p class="fFont">email<br/><input class="fInput" type="text"></p><br/>
 				</div>
