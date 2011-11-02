@@ -14,3 +14,4 @@
 --->
 <cfset set(cacheModelInitialization=false)>
 <cfset set(cacheDatabaseSchema=false)>
+<cfset set(URLRewriting="On")>

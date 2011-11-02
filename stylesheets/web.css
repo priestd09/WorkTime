@@ -1,0 +1,364 @@
+* {
+margin: 0;
+padding: 0;
+outline: none;
+}
+
+body{
+background-color:#3D5166;
+}
+
+
+#wrapper{
+width: 1015px;
+margin-left: auto;
+margin-right: auto;
+margin-top:40px; 
+background-image:url('../images/background.gif');
+clear:both;
+/* min-height:544px; */
+}
+
+
+
+#content{
+background-image:url('../images/background.gif');
+float:left;
+padding-bottom:100px;
+margin-bottom: 50px;
+}
+
+#header{border-bottom:4px solid #3D5166;
+clear: both;
+float: left;/* questionable both the float and clear and padding  */
+/* padding-right:200px; */
+padding-top: 20px;
+background-color:white;
+}
+
+#imagesAdjLo{
+padding-left:20px; 
+padding-right: 130px;
+
+}
+.adjBtn{margin-top: 18px;
+}
+#left{
+float:left;
+/* width: 570px; */
+margin-left: 20px;
+margin-right:20px;
+margin-top:20px;
+ }
+ #left images{border:4pt solid #3D5166;
+}
+
+#subleft{float:left;
+margin-right:50px ;
+}
+#subleft ul li{
+padding-bottom:5px; 
+}
+#subleft p{
+padding-top: 10px;
+padding-bottom:10px;
+}
+#subleft2{
+float: left;
+}
+#subleft2 ul li{
+padding-bottom:5px; 
+}
+#subleft2 p{
+padding-top: 10px;
+padding-bottom:10px; 
+}
+#right{
+float:left;
+margin-top:20px;
+}
+
+#right ul li{
+margin-bottom:5px; 
+}
+
+/*
+#right #signPos{
+margin-bottom:50px;
+}
+*/
+
+#right #signUp{
+margin-top:20px;
+}
+
+#right #ben{
+margin-bottom:10px;
+}
+#right #signPos button{margin-bottom:20px;
+margin-top:25px;
+}
+#right #signPos form{
+margin-top:20px;
+}
+#right #signPos form #rrBtn{
+margin-right:10px;
+margin-left: 5px;
+}
+#right #signPos form #emBtn{
+margin-right:10px;
+margin-left: 5px;
+}
+#right .pMove{
+margin-top:30px;
+}
+.clocks{margin-left: 40px;
+}
+.clocks li{list-style-image: url('../images/clo.png');
+
+}
+#signUp{background-color:white;
+}
+
+#bottom{
+border: 1px solid blue;
+clear: both;
+}
+
+
+#signPos{
+-moz-border-radius: 5px;
+border-radius: 5px;
+padding: 20px;
+}
+
+#signUp{width:330px;
+-moz-border-radius:5px;
+border-radius: 5px; 
+border: 2pt solid #3D5166;
+
+}
+.fInput{
+border:1pt solid #3D5166; 
+-moz-border-radius: 5px;
+border-radius: 5px;
+width: 250px;
+height:27px;
+
+}
+
+.submitBtn{
+color:#3D5166;
+background-color: #6BC7CE;
+-moz-border-radius: 5px;
+border-radius: 5px;
+padding: 3px 6px 3px 6px;
+border-style: none;
+
+}
+
+.rBtn{color:red; }
+
+/*_________________________________________________ dashemployee */
+#editA{
+margin-right:5px;
+}
+
+#headU{margin-left:445px;
+}
+
+#imagesAdjLo{
+margin-bottom:20px;
+}
+#calenderemployee{border:3px solid #3D5166;
+clear:both;
+float: left; 
+background-color:#fff;
+-moz-border-radius:3px;
+border-radius:3px;
+margin-left:20px;
+width: 960px;
+}
+.week{border-left:1px solid #3D5166;
+float: left;
+height: 142px;
+
+}
+#mainDate{
+padding-bottom:5px;
+}
+#dateW{margin-left:5px;
+margin-right:5px;
+}
+
+#dateField{
+width:100px;
+margin-bottom:10px;
+border: 2px solid #3D5166;
+-moz-border-radius:3px;
+border-radius:3px;
+}
+
+
+
+#reqBtn{
+margin-top:40px;
+}
+
+#cheB input{width:25px;
+height:25px;
+margin-left: 20px;
+color: #6BC7CE;
+border:1px solid black;
+}
+#sTimeM{
+float:left;
+}
+
+#sTimeM2{
+float:left;
+}
+
+ #sTime{float:left; } 
+  #sTime2{float:left; } 
+
+.emploMove{margin-left:10px;
+width:125px;
+}
+
+#arrR{margin-right:10px;
+}
+
+#arrL{margin-left: 20px;
+}
+
+
+#underCal{float: left;
+clear: both;
+width:960px;
+margin-top:30px; 
+
+}
+
+#overAva{
+float:left; 
+margin-left: 60px;
+margin-right: 50px;
+}
+
+#overAva input{
+width:50px;
+margin-left: 30px; 
+margin-right: 25px;
+border: 2px solid #3D5166;
+-moz-border-radius:3px;
+border-radius:3px;
+margin-bottom:12px;
+padding:3px 5px 5px 5px;
+}
+
+#daysD{float: left;
+margin-left: 20px;
+}
+#daysD p{
+margin-bottom:20px;
+}
+#staT{
+float:left;
+}
+#endT{
+float:left;
+}
+
+#startS{
+margin-left:80px ;
+margin-right:95px; 
+
+}
+#reqT{
+float:left; 
+margin-right:50px;
+/* height:350px; */
+}
+
+#currentR{
+float: left;
+margin-left: 50px;
+
+}
+.containerReq{
+border: 2px solid #3D5166;
+width: 240px; 
+float: left;
+
+}
+
+#staEndT{
+margin-top: 10px;
+}
+
+.pend{
+float:left;
+margin-right:50px;
+}
+.subPend{
+float:left;
+}
+/*_________________________________________________ addemp */
+#createEmp{
+border: 1px solid blue;
+float: left;
+}
+#newEmploy{
+background: white;
+}
+#newEmpSkill{
+float: left;
+}
+#newEmpSkill2nd{
+float: left;
+}
+#currEmp{
+border: 1px solid red;
+float:left;
+
+}
+/* ____________________________________________createBuss */
+#createB{
+border: 1px solid red;
+width:300px;
+margin-left:auto;
+margin-right: auto; 
+}
+/*_________________________________________________ fonts */
+
+.fFont{font: bold 12pt helvetica,arial;
+color:#3D5166;
+}
+.sFont{font:oblique 10pt helvetica,arial;
+color:#3D5166;
+}
+.tFont{font: bold 20pt helvetica,arial;
+color:#93CC6E;}
+
+.ffFont{font: 12pt helvetica,arial;
+color:#3D5166;}
+.bFont{
+font: bold 14pt helvetica,arial;
+}
+.ssFont{font: bold 12pt helvetica,arial;
+color:#6BC7CE;
+}
+
+.timesF{font: 12pt myriad Pro,arial;
+color:#3D5166;
+}
+.move{float: left;
+margin-right:20px; 
+}
+
+.dayFont{
+font:bold 12pt helvetica,arial;
+color:#93CC6E;
+margin:10px 25px 10px 10px;  
+}
