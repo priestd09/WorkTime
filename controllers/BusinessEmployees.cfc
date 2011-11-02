@@ -5,20 +5,21 @@
 	</cffunction>
 	<cffunction name="index">
 		<cfset newEmployee=model("employees").new()>
-		<cfset newSkills=model("skills").new()>
-			<cfset getSkills(1)>
+		<cfset newSkill = model("skills").new()>
+		<cfset getSkills(1)>
 	
 	</cffunction>
 	
 	<cffunction name="add">
 		<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
-<!--- 		<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
-		<cfset params.newEmployee.businessid = 1>
-		<cfset model("employees").create(params.newEmployee)>
+		<!---<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
+		<cfset newEmployee = model("employees").new(params.newEmployee)>
+		<cfset newEmployee.businessid = 1>
+		<cfset newEmployee.save()>
+		<!--- <cfset model("employeeskills").save(params.newEmployee.employeeskil)> --->
 		<cfset skills1 = model("employeeskill").findAllByEmployeesid(value=10, include="skill")>
-		<cfset index()>
 		<cfset renderPage(action="index")>
-<!--- 		<cfset skills = model("skills").findAllByBusinessid(value=1)> --->
+		<!--- <cfset skills = model("skills").findAllByBusinessid(value=1)> --->
 	</cffunction>
 
 	<cffunction name="edit">
@@ -46,15 +47,24 @@
 	
 	<cffunction name="getSkills">
 		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
-		<cfset test= model("skills")>
+		<cfset test = model("skills")>
 		<cfset skills = test.findAllByBusinessid(value=id)>
 	</cffunction>
 	
-	
 	<cffunction name="addSkills">
-		<cfset test= model("employees")>
-		<cfset testFind = test.findAll(include="Business")>
+	<!--- ADDING A SKILL --->
+		<cfset newSkill = model("skills").new()>
+		<cfset newSkill=model("skills").new(params.newSkill)>
+		<cfset newSkill.businessid = 1>
+		<cfset newSkill.save()>
+		
+<!--- 		<cfset test2 = model("skills").save(params.newSkill)> --->
+<!--- 		<cfset aSkill = test2.save(params.newSkill)> --->
+		<cfset renderPage(action="index")>
 	</cffunction>
+	
+	
+	
 	<cffunction name="editSkills">
 		<cfset test= model("employees")>
 		<cfset testFind = test.findAll(include="Business")>
