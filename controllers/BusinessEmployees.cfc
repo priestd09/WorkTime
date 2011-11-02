@@ -4,21 +4,27 @@
 		
 	</cffunction>
 	<cffunction name="index">
-		<cfset newEmployee=model("employees").findOneByid(20)>
+		<cfset newEmployee=model("employees").findOneByid(10)>
 		<cfset newSkill = model("skills").findOneByName("Stock")>
 		<cfset getSkills(1)>
-	
 	</cffunction>
 	
 	<cffunction name="add">
 		<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
 		<!---<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
 		<cfset id = params.newEmployee.id>
+		<cfset checkedSkills2=params.checkedSkills>
+		<cfloop collection=#checkedSkills2# item="skill">
+			<!--- RUN EMPLOYEESKILL UPDATE FUNCTION HERE using #skill# as the id for the skill--->
+			
+		</cfloop>
 		<cfset newEmployee = model("employees").new(params.newEmployee)>
 		<cfset newEmployee.businessid = 1>
 		<cfset newEmployee.updateByKey(id, params.newEmployee)>
 		<!--- <cfset model("employeeskills").save(params.newEmployee.employeeskil)> --->
 		<cfset skills1 = model("employeeskill").findAllByEmployeesid(value=10, include="skill")>
+				<cfset getSkills(1)>
+
 		<cfset renderPage(action="index")>
 		<!--- <cfset skills = model("skills").findAllByBusinessid(value=1)> --->
 	</cffunction>
