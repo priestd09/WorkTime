@@ -1,5 +1,7 @@
 <h1>HEY!</h1>
 
+<!--- <cfdump var="#checkedSkills2#"> --->
+
 <cfoutput>
 
 <!--- #errorMessagesFor("newSkill")# --->
