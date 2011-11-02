@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller">
 	<cffunction name="init">
-		<cfset test= model("employees")><!--- Should be all lowercase and plural--->
-		<cfset testFind = test.findAll(include="Business")><!--- should be Camel Case and singular--->
+		<!---<cfset test= model("employees")> Should be all lowercase and plural--->
+		<!---<cfset testFind = test.findAll(include="Business")> should be Camel Case and singular--->
 	</cffunction>
 	
 	<cffunction name="index">
@@ -9,7 +9,7 @@
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
-		<cfset overallDay=model("overallavalibilitydays").new()>
+		<cfset overallDay=model("overallavalibilitydays")>
 		<cfset offrequest=model("offrequests").new()>
 		
 <!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
