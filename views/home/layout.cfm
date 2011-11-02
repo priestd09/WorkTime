@@ -17,18 +17,6 @@
 			<div id="header">
 				
 				<div class="move"><p id="imgAdjLo"><img src="/worktime/images/lo.jpg"/></p></div>
-				<div class="move" >
-					<p class="fFont">email<br/><input class="fInput" type="text"></p><br/>
-				</div>
-				<div class="move" >
-					<p class="fFont">password<br/><input class="fInput" type="password"></p>
-				</div>
-				<div class="move">
-					<p><button class="submitBtn bFont adjBtn" type="submit">Sign In</button></p>
-				</div>
-
-			</div><!-- closeheader -->
-			
 			<cfoutput>#includeContent()#</cfoutput>
 		</div>	<!-- content -->
 		</div><!-- closewrapper -->
