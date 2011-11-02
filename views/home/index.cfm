@@ -1,10 +1,12 @@
 <cfoutput>
+#errorMessagesFor("user")#
+
 #startFormTag(action="signin")#
 	<div class="move fFont">
     	#textField(label="email", labelPlacement="before", appendToLabel="</br>", objectName="user", property="email", class="fInput")#
     </div>
     <div class="move fFont">
-    	#textField(label="password", labelPlacement="before", appendToLabel="</br>", objectName="user", property="password", class="fInput")#
+    	#passwordField(label="password", labelPlacement="before", appendToLabel="</br>", objectName="user", property="password", class="fInput")#
     </div>
     <div class="move">
     	<p>#submitTag(class="submitBtn bFont adjBtn", value="sign in")#</p>
@@ -44,7 +46,8 @@
 	
 	<div id="signUp">
 	<div id="signPos">
-	#startFormTag(action="signup")#
+	<!---
+#startFormTag(action="signup")#
 		<p class="tFont ">sign up</p>
 		<p class="fFont pMove">#textField(class="fInput", label="email", objectName="newUser", property="email")#</p>
 		<p class="sFont">example:name@domain.com</p>
@@ -60,6 +63,7 @@
     </div> <!--- closes signUp --->	
   
   #endFormTag()#  
+--->
 </cfoutput>	
 
 
