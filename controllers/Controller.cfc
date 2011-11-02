@@ -5,7 +5,7 @@
 --->
 <cfcomponent extends="Wheels">
 <cffunction name="init">
-	<cfset filters(through="checkLogin", except="signin,signup")>
+	<cfset filters(through="checkLogin", except="index,signin,signup")>
 
 </cffunction>
 <cffunction name="checkLogin">

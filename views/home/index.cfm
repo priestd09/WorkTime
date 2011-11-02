@@ -1,5 +1,4 @@
 <cfoutput>
-#errorMessagesFor("user")#
 
 #startFormTag(action="signin")#
 	<div class="move fFont">
@@ -46,8 +45,10 @@
 	
 	<div id="signUp">
 	<div id="signPos">
-	<!---
+
 #startFormTag(action="signup")#
+
+#errorMessagesFor("newUser")#
 		<p class="tFont ">sign up</p>
 		<p class="fFont pMove">#textField(class="fInput", label="email", objectName="newUser", property="email")#</p>
 		<p class="sFont">example:name@domain.com</p>
@@ -63,7 +64,7 @@
     </div> <!--- closes signUp --->	
   
   #endFormTag()#  
---->
+
 </cfoutput>	
 
 
