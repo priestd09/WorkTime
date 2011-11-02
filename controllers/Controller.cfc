@@ -5,9 +5,11 @@
 --->
 <cfcomponent extends="Wheels">
 <cffunction name="init">
-	<cfset filters(through="checkLogin", except="index,signin,signup")>
+	<cfset filters(through="checkLogin")>
+			<cfdump var="hello"><cfabort>
 
 </cffunction>
+
 <cffunction name="checkLogin">
 	<cfif not StructKeyExists(session,"user")>
 		<cfset redirectTo(controller="home",action="index")>

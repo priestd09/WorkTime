@@ -5,7 +5,8 @@
 	
 	
 	<cfset user= model("user").new()>
-	<cfset newUser= model("user").new()>	
+	<cfset newUser= model("user").new()>
+	
 <!--- 			<cfset newUser=model("user").new()> --->
 		
 	</cffunction>
@@ -14,6 +15,7 @@
 		<cfset user=model("user").findOne(where="email='#params.user.email#' AND password='#params.user.password#'")>
 		<cfif IsObject(user)>
 			<cfset session.user.id = user.id>
+			<cfset redirectTo(controller="business",action="index")>
 		<cfelse>
 			<cfset newUser= model("user").new()>	
 			<cfset user = model("user").new(email=params.user.email)>
@@ -38,6 +40,10 @@
 	
 	</cffunction>
 	
+	<cffunction name="signout">
+		<cfset  StructDelete(session, "user")>
+		<cfset redirectTo(controller="home",action="index")>
 	
+	</cffunction>
 	
 </cfcomponent>
