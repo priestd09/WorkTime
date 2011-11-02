@@ -1,15 +1,38 @@
-<cfdump var="#days#">
+<h1>HEY!</h1>
 <cfoutput>
-	<cfloop query="days">
-		#days.start#
-		#days.end#
-	</cfloop>
-</cfoutput>
+#errorMessagesFor("overallDay1")#
 
-<cfdump var="#requests#">
-<cfoutput>
-	<cfloop query="requests">
-		#days.start#
-		#days.end#
-	</cfloop>
+#startFormTag(action="addOverall")#
+	#select(
+	    label="Monday", objectName="overallDay", property="start",
+	    options=hours
+	)#
+	#select(
+	    label="", objectName="overallDay", property="end",
+	    options=hours
+	)#
+    <div>
+        #submitTag()#
+    </div>
+
+#endFormTag()#
+
+#errorMessagesFor("offrequest1")#
+
+#startFormTag(action="addRequest")#
+	#textfield(label="Date", objectName="offrequest", property="date")#
+	#select(
+	    label="Monday", objectName="offrequest", property="start",
+	    options=hours
+	)#
+	#select(
+	    label="", objectName="offrequest", property="end",
+	    options=hours
+	)#
+    <div>
+        #submitTag()#
+    </div>
+
+#endFormTag()#
+
 </cfoutput>
