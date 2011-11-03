@@ -18,6 +18,7 @@
 			<div id="header">
 				
 				<div class="move"><p id="imgAdjLo"><img src="/worktime/images/lo.jpg"/></p></div>
+			</div>
 			<cfoutput>#includeContent()#</cfoutput>
 		</div>	<!-- content -->
 		</div><!-- closewrapper -->

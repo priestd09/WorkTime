@@ -1,13 +1,23 @@
 <cfcomponent extends="Controller">
 	<cffunction name="index">
-		<cfset newEmployee=model("employees").findOneByid(10)>
-		<cfset newSkill = model("skills").findOneByName("Stock")>
+		<cfset newEmployee=model("employees").new()>
+		<cfset newSkill = model("skills").new()>
+		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
+		<cfset employeedropdown=model("skills").new()>
+		<cfset getEmployees()>
 		<cfset getSkills(1)>
 	</cffunction>
 	
 	<cffunction name="add">
-		<!--- DO NOT FORGET TO ADD OVERALLAVAILABILITYDAYS BASED ON BUSINESS HOURS FOR NEW EMPLOYEE ---
-		<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
+		<!--- DO NOT FORGET TO ADD OVERALLAVAILABILITYDAYS BASED ON BUSINESS HOURS FOR NEW EMPLOYEE --->
+		
+	</cffunction>
+
+	<cffunction name="edit">
+		<cfset newEmployee=model()>
+	</cffunction>
+	<cffunction name="update">
+	<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
 		<!---<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
 		<cfset id = params.newEmployee.id>
 		<cfset checkedSkills2=params.checkedSkills>
@@ -24,10 +34,7 @@
 
 		<cfset renderPage(action="index")>
 		<!--- <cfset skills = model("skills").findAllByBusinessid(value=1)> --->
-	</cffunction>
-
-	<cffunction name="edit">
-		
+	
 	</cffunction>
 	
 	<cffunction name="delete">
@@ -38,10 +45,8 @@
 	</cffunction>
 	
 	<cffunction name="getEmployees">
-		<cfargument name="id" required="false" type="numeric" hint="business id goes here">
-		<cfset test= model("employees")>
-		<cfset employees = test.findAllByBusinessid(value=id, include="Business")>
-		<!--- This one also gets what it says it will :) --->
+		<cfdump var="#session#"><cfabort>
+		<cfset employees= model("employees").findAllByBusinessid(value=session.user.businessid, include="Business")>
 	</cffunction>
 	
 	<cffunction name="getEmployeesBySkill">
