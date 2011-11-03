@@ -6,10 +6,21 @@
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
 <!--- 	<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
-		<cfset overallDay=model("overallavalibilitydays")>
+		<cfset overalldays=model("overallavalibilitydays").findAll(where="employeeid=13")>
+		<cfset day = []>
+		<cfset options= ["400", "800", "1200", "2200"]>
+		<cfloop query="overalldays">
+			<cfset struct=StructNew()>
+			<cfset struct.start=#overalldays.start#>
+			<cfset struct.end=#overalldays.end#>
+			
+			<cfset "day#overalldays.weekday#"=model("overallavalibilitydays").new(struct)>
+<!--- 			<cfdump var="#overalldays#"><cfabort> --->
+		</cfloop>
 		<cfset offrequest=model("offrequests").new()>
 		<cfset shifts=model("week").findAll(where="businessid=5 AND employeeid=13",include="days(shifts(employeeshifts(skill)))")>
 		<cfset weeks = getSchedule()>
+
 <!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
 
 		<cfif !IsDefined("overallDay1")>
