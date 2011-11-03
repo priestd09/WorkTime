@@ -1,14 +1,15 @@
 <h1>HEY!</h1>
-<cfdump var="#employees#">
 <cfoutput>
 <div id="createEmp">
 	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>
 	<div id="newEmploy">	
-		#startFormTag(action="create")#
+		#startFormTag(action="#submitType#")#
 		<div id="newEmpSkill" class="ffFont">
 			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit"><a href="">edit</a></span></p>
 			<cfloop query="skills">
-				 #checkBoxTag(name="checkedSkills[#skills.id#]", value=skills.id, label=skills.name,  labelPlacement="after",class="cheCat", appendToLabel="<br/>")#
+				<cfif IsDefined("skills.id")>
+				 #checkBoxTag(name="checkedSkills[#skills.id#]", value=skills.id, label=skills.name,  labelPlacement="after",class="cheCat", appendToLabel="<br/>", checked=skills.checked)#
+				 </cfif>
 			</cfloop>
 		</div>
 		<div id="newEmpSkill2nd">
@@ -26,6 +27,7 @@
 	    		#radioButton(label="Part-Time", objectName="newEmployee", property="time", labelPlacement="after", tagValue="part", class="rBtn")#
 	    	</div>
 	    <div>
+	    	#hiddenField(objectName="newEmployee", property="id")#
 	    	#hiddenField(objectName="newEmployee", property="userid")#
 	        #submitTag(class="submitBtn bFont",value="Add Employee")#
 	    </div>
@@ -35,6 +37,10 @@
 
 <div id="currEmp">
 		#select(objectName="employeedropdown", property="employee",options=employeeskills)#
+		<cfloop query="employees">
+				<p>#employees.name#</p>
+				#linkTo(text="edit",controller="businessemployees",action="edit",key=employees.id)#
+		</cfloop>
 </div>
 
 
