@@ -3,6 +3,8 @@
 <!--- <cfdump var="#newUser#"><cfabort> --->
 
 #startFormTag(action="signin")#
+#errorMessagesFor("user")#
+
 	<div class="move fFont">
     	#textField(label="email", labelPlacement="before", appendToLabel="</br>", objectName="user", property="email", class="fInput")#
     </div>

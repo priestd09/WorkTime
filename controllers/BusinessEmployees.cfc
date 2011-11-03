@@ -1,40 +1,87 @@
 <cfcomponent extends="Controller">
 	<cffunction name="index">
-		<cfset newEmployee=model("employees").new()>		
-		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
-		<cfset employeedropdown=model("skills").new()>
+		<cfset full={time="full"}>
+		<cfset newEmployee=model("employees").new(full)>		
 		<cfset submitType="add">
-		<cfset getEmployees()>
 		<cfset getSkills()>
+		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+		<cfset employeedropdown=model("skills").new()>
 	</cffunction>
 	
 	<cffunction name="add">
-		<!--- DO NOT FORGET TO ADD OVERALLAVAILABILITYDAYS BASED ON BUSINESS HOURS FOR NEW EMPLOYEE --->
-		<cfset newEmployee=model("employees").findByKey(params.key)>
-
+		<cfset newEmployee=model("employees").new(params.newEmployee)>
+		<cfset newEmployee.businessid = session.user.businessid>
+		<cfset StructDelete(newEmployee,"id")>
+		<cfset newEmployee.save()>
+			
+				
+		<cfif newEmployee.hasErrors()>
+			<cfset employeedropdown=model("skills").new()>
+			<cfset submitType="add">
+			<cfset getSkills()>
+			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+			<cfset renderpage(action="index")>
+		<cfelse>
+			<cfset business=model("businessdays").findAllByBusinessid(value=session.user.businessid)>
+			<cfloop query="business">
+				<cfif business.day eq "all">
+					<cfset start=business.starttime>
+					<cfset end=business.endtime>
+					<cfloop from="1" to="7" index="i">
+						<cfset struct=StructNew()>
+						<cfset struct.weekday=i>
+						<cfset struct.start=start>
+						<cfset struct.end=end>
+						<cfset struct.employeeid=newEmployee.id>
+						<cfset days=model("overallavalibilitydays").new(struct)>
+						<cfset days.save()>
+					</cfloop>
+				</cfif>
+			</cfloop>
+				
+			<cfset checkedSkills2=params.checkedSkills>
+			<cfloop collection=#checkedSkills2# item="skill">
+				<cfset newSkill=model("employeeskill").new()>
+				<cfset newSkill.employeesid=newEmployee.id>
+				<cfset newSkill.skillid=skill>
+				<cfset newSkill.save()>
+			</cfloop>
+			
+			<cfset full={time="full"}>
+			<cfset newEmployee=model("employees").new(full)>	
+			<cfset employeedropdown=model("skills").new()>
+			<cfset submitType="add">
+			<cfset getSkills()>
+			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+			<cfset renderPage(action="index")>
+		</cfif>
+		
+		
 	</cffunction>
 
 	<cffunction name="edit">
 		<cfset newEmployee=model("employees").findByKey(params.key)>
-		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
 		<cfset employeedropdown=model("skills").new()>
-		<cfset getEmployees()>
 		<cfset getSkillsByEmployee()>
 		<cfset getSkills()>
+		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
 		<cfset submitType="update">
 		<cfset renderPage(action="index")>
 	</cffunction>
 	
 	
 	<cffunction name="update">
+	
 		<cfset id=params.newEmployee.id>
 		<cfset newEmployee = model("employees").new(params.newEmployee)>
 		<cfset newEmployee.businessid = 1>
 		<cfset newEmployee.updateByKey(id, params.newEmployee)>		
+		
+		
 		<cfset checkedSkills2=params.checkedSkills>
+		
+		
 		<cfset delete=model("employeeskills").findAllByEmployeesid(id)>
-		
-		
 		<cfloop query="delete">
 			<cfset deleteThis=model("employeeskills").findOneByEmployeesidAndSkillid(value="#delete.employeesid#,#delete.skillid#")>
 			<cfset deleteThis.delete()>
@@ -50,7 +97,7 @@
 		
 		<cfif newEmployee.hasErrors()>
 			<cfset getSkills()>
-			<cfset getEmployees()>
+			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
 			<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
 			<cfset employeedropdown=model("skills").new()>
 			<cfset submitType="update">
@@ -72,9 +119,10 @@
 	</cffunction>
 	
 	<cffunction name="getEmployeesBySkill">
-		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
+		<cfargument name="id" required="false">
+		<cfset businessid = session.user.businessid>
 		<cfset test= model("employees")>
-		<cfset x = test.findAllBySkillidAndBusinessid(value="1,2",include="EmployeeSkills(skill)")>
+		<cfset employees = test.findAllBySkillidAndBusinessid(value="#id#,#businessid#",include="EmployeeSkills(skill)")>
 	</cffunction>
 	
 	<cffunction name="getSkills">
@@ -108,6 +156,18 @@
 		<cfset newSkill=model("skills").new(params.newSkill)>
 		<cfset newSkill.businessid = 1>
 		<cfset newSkill.save()>
+		<cfset renderPage(action="index")>
+	</cffunction>
+	
+	<cffunction name="updateList">
+		<cfset getEmployeesBySkill(params.employeedropdown.dropskill)>
+		
+		<cfset employeedropdown=model("skills").new(params.employeedropdown)>
+		<cfset full={time="full"}>
+		<cfset newEmployee=model("employees").new(full)>			
+		<cfset submitType="add">
+		<cfset getSkills()>
+
 		<cfset renderPage(action="index")>
 	</cffunction>
 	
