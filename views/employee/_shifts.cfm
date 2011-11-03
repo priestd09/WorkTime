@@ -1,6 +1,5 @@
 <cfoutput>
 	<cfloop collection=#weeks# item="day">
-	
 		<div class="week">
 			<p class="dayFont">#day#</p>
 			<cfloop array="#weeks[day]#" index="shift">
