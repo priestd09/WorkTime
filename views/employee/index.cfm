@@ -34,5 +34,5 @@
     </div>
 
 #endFormTag()#
-
+#linkto(text="Sign Out", controller="home", action="signout")#
 </cfoutput>
