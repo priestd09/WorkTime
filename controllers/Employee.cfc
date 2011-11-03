@@ -1,12 +1,16 @@
 <cfcomponent extends="Controller">
 	
 	<cffunction name="index">
-		<cfset employeeid=10>
+		<cfset employeeid=13>
+
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
+<!--- 		<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
 		<cfset overallDay=model("overallavalibilitydays")>
 		<cfset offrequest=model("offrequests").new()>
+		<cfset shifts=model("week").findAllByBusinessid(businessid=5,include="days(shifts(employeeshifts))", where="employeeid=13")>
+
 		
 <!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
 
@@ -16,7 +20,7 @@
 		<cfif !IsDefined("offrequest1")>
 			<cfset offrequest1=model("offrequests").new()>
 		</cfif>
-
+		
 	</cffunction>
 	
 	<cffunction name="addOverall">

@@ -6,6 +6,7 @@
 	</cffunction>
 	
 	<cffunction name="add">
+		<!--- DO NOT FORGET TO ADD OVERALLAVAILABILITYDAYS BASED ON BUSINESS HOURS FOR NEW EMPLOYEE ---
 		<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
 		<!---<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
 		<cfset id = params.newEmployee.id>
