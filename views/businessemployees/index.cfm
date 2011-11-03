@@ -3,6 +3,7 @@
 	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>
 	<div id="newEmploy">	
 		#startFormTag(action="#submitType#")#
+		#errorMessagesFor("newEmployee")#
 		<div id="newEmpSkill" class="ffFont">
 			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit"><a href="">edit</a></span></p>
 			<cfloop query="skills">
@@ -36,11 +37,16 @@
 </div>
 
 <div id="currEmp">
-		#select(objectName="employeedropdown", property="employee",options=employeeskills,label="")#
-		<cfloop query="employees">
-				<p>#employees.name#</p>
-				#linkTo(text="edit",controller="businessemployees",action="edit",key=employees.id)#
-		</cfloop>
+		#startFormTag(action="updateList")#
+			#select(objectName="employeedropdown", property="dropskill",options=skills,label="")#
+	        #submitTag(class="submitBtn bFont",value="Update")#
+		#endFormTag()#
+
+			<cfloop query="employees">
+					<p>#employees.name#</p>
+					#linkTo(text="edit",controller="businessemployees",action="edit",key=employees.id)#
+			</cfloop>
+			
 </div>
 
 
