@@ -15,3 +15,5 @@
 <cfset set(cacheModelInitialization=false)>
 <cfset set(cacheDatabaseSchema=false)>
 <cfset set(URLRewriting="On")>
+<cfset application.reCaptcha.publicKey = "6LcywskSAAAAALeW3HZljC-pS2JePqI1Li5o5YlY">
+<cfset application.reCaptcha.privateKey = "6LcywskSAAAAANgKyD9z3ru9NYHs2mCF6ywO2Eoq">
