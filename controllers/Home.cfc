@@ -19,7 +19,7 @@
 		<cfset user=model("user").findOne(where="email='#params.user.email#' AND password='#params.user.password#'", include="employee")>
 		<cfif IsObject(user)>
 			<cfset session.user.id = user.id>
-			<cfset session.user.businessid = user.employee.businessid>
+			<cfset session.user.businessid = user.businessid>
 			<cfset session.user.usertypeid = user.usertypeid>
 			
 			<cfif user.usertypeid eq 2>

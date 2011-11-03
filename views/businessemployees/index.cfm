@@ -1,32 +1,43 @@
 <h1>HEY!</h1>
-
-<!--- <cfdump var="#checkedSkills2#"> --->
-
+<cfdump var="#employees#">
 <cfoutput>
+<div id="createEmp">
+	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>
+	<div id="newEmploy">	
+		#startFormTag(action="create")#
+		<div id="newEmpSkill" class="ffFont">
+			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit"><a href="">edit</a></span></p>
+			<cfloop query="skills">
+				 #checkBoxTag(name="checkedSkills[#skills.id#]", value=skills.id, label=skills.name,  labelPlacement="after",class="cheCat", appendToLabel="<br/>")#
+			</cfloop>
+		</div>
+		<div id="newEmpSkill2nd">
+					<div id="empNames">
+						<div id="empNames2">
+							<p id="namM" class="fFont">
+								#textField(label="Name", objectName="newEmployee", property="name", class="fInput", labelPlacement="before", appendToLabel="<br/>")#
+	   						</p>
+	   						<p id="namM2" class="sFont">add your employees name here</p>
+	   						<p id="emaM" class="fFont">
+	   						#textField(label="Email", objectName="newEmployee", property="email",class="fInput", labelPlacement="before", appendToLabel="<br/>")#
+	    <br/><label class="fFont">they are</label><br/>
+	    	<div class="ffFont">
+	   			#radioButton(label="Full-Time", objectName="newEmployee", property="time", labelPlacement="after", tagValue="full", class="rBtn" )#
+	    		#radioButton(label="Part-Time", objectName="newEmployee", property="time", labelPlacement="after", tagValue="part", class="rBtn")#
+	    	</div>
+	    <div>
+	    	#hiddenField(objectName="newEmployee", property="userid")#
+	        #submitTag(class="submitBtn bFont",value="Add Employee")#
+	    </div>
+	    #endFormTag()#
+	</div>
+</div>
 
-<!--- #errorMessagesFor("newSkill")# --->
-
-#startFormTag(action="add")#
-
-    #textField(label="Name", objectName="newEmployee", property="name")#
-    #textField(label="Email", objectName="newEmployee", property="email")#
-    <label for=""></label>
-    #radioButton(label="Full-Time", objectName="newEmployee", property="time", labelPlacement="after", tagValue="full")#
-    <label for=""></label>
-    #radioButton(label="Part-Time", objectName="newEmployee", property="time", labelPlacement="after", tagValue="part")#
-	<cfloop query="skills">
-<!---     	#hasManyCheckBox(objectName="newEmployee", label=skills.name, keys="#skills.id#", association="employeeskills")# --->
-    	 #checkBoxTag(name="checkedSkills[#skills.id#]", value=skills.id, label=skills.name)#
-    </cfloop>
-
-    <div>
-    	#hiddenField(objectName="newEmployee", property="id")#
-    	#hiddenField(objectName="newEmployee", property="userid")#
-        #submitTag()#
-    </div>
+<div id="currEmp">
+		#select(objectName="employeedropdown", property="employee",options=employeeskills)#
+</div>
 
 
-#endFormTag()#
 
 <!---
 
