@@ -14,7 +14,7 @@ width: 1015px;
 margin-left: auto;
 margin-right: auto;
 margin-top:40px; 
-background-image:url('../img/background.gif');
+background-image:url(../images/background.gif');
 clear:both;
 /* min-height:544px; */
 }
@@ -22,7 +22,7 @@ clear:both;
 
 
 #content{
-background-image:url('../img/background.gif');
+background-image:url('../images/background.gif');
 float:left;
 padding-bottom:100px;
 margin-bottom: 50px;
@@ -36,7 +36,7 @@ padding-top: 20px;
 background-color:white;
 }
 
-#imgAdjLo{
+#imagesAdjLo{
 padding-left:20px; 
 padding-right: 130px;
 
@@ -50,7 +50,7 @@ margin-left: 20px;
 margin-right:20px;
 margin-top:20px;
  }
- #left img{border:4pt solid #3D5166;
+ #left images{border:4pt solid #3D5166;
 }
 
 #subleft{float:left;
@@ -114,7 +114,7 @@ margin-top:30px;
 }
 .clocks{margin-left: 40px;
 }
-.clocks li{list-style-image: url('../img/clo.png');
+.clocks li{list-style-image: url('../images/clo.png');
 
 }
 #signUp{background-color:white;
@@ -218,7 +218,7 @@ margin-top: 20px;
 #headU{margin-left:445px;
 }
 
-#imgAdjLo{
+#imagesAdjLo{
 margin-bottom:20px;
 }
 #calenderemployee{border:3px solid #3D5166;
