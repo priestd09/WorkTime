@@ -1,5 +1,7 @@
 <cfoutput>
 
+<!--- <cfdump var="#newUser#"><cfabort> --->
+
 #startFormTag(action="signin")#
 	<div class="move fFont">
     	#textField(label="email", labelPlacement="before", appendToLabel="</br>", objectName="user", property="email", class="fInput")#
@@ -55,9 +57,9 @@
 		
 		<p class="fFont pMove">#passwordField(class="fInput", label="password", objectName="newUser", property="password")#</p>
 		<p class="sFont">At least 6 characters long</p>
-		<label class="fFont">my role is</label><br/>
-		#radioButton(label="business", objectName="newUser", property="usertypeid", labelPlacement="after", tagValue=2)#
-		#radioButton(label="employee", objectName="newUser", property="usertypeid", labelPlacement="after", tagValue=1)#
+<!--- 		<label class="fFont">my role is</label><br/> --->
+<!--- 		#radioButton(label="business", objectName="newUser", property="usertypeid", labelPlacement="after", tagValue=2)# --->
+<!--- 		#radioButton(label="employee", objectName="newUser", property="usertypeid", labelPlacement="after", tagValue=1)# --->
 		#submitTag(value="sign up", class="submitBtn bFont")#
 		
     </div> <!--- closes signPOS --->
