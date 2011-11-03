@@ -1,5 +1,6 @@
 <cfoutput>
-#startFormTag(action="create")#
+</div>
+#startFormTag(action="update")#
 #errorMessagesFor("business")#
 
 <div id="createB">
@@ -39,7 +40,10 @@
 			</div>
 		</div>
 	</div>
-	#submitTag(value="create business", class="submitBtn bFont")#
+	<div class="move">
+	#showCaptcha(captchaError=captchaError)#
+	</div>
+	#submitTag(value="update business", class="submitBtn bFont")#
 </div>
 #endFormTag()#
 </cfoutput>					

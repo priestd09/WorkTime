@@ -28,8 +28,38 @@
 		</cfif>
 	</cffunction>
 	<cffunction name="edit">
-		<cfset test= model("employees")>
-		<cfset testFind = test.findAll(include="Business")>
+		<cfset business = model("business").findByKey(session.user.businessid)>
+		<cfset hours=["8:00pm","9:00pm"]>
+		<cfset timeHours=["40 hours","35 hours"]>
+		<cfset shiftHours=["4 hours","8 hours"]>
+		<cfset captchaError=false>
+		<cfset businessdays=model("businessdays").new()>
+	</cffunction>
+	<cffunction name="update">
+		<cfif validateCaptcha()>
+			
+			<cfset business= model("business").new(params.business)>
+			<cfset business.updateByKey(session.user.businessid, business)>	
+			
+			<cfset business = model("business").new(params.business)>
+			<cfset hours=["8:00pm","9:00pm"]>
+			<cfset timeHours=["40 hours","35 hours"]>
+			<cfset shiftHours=["4 hours","8 hours"]>
+			<cfset businessdays=model("businessdays").new()>
+			<cfset captchaError=false>
+			<cfif business.hasError()>
+				<cfset edit()>
+				<cfset renderPage(action="edit")> 
+
+			<cfelse>
+				<cfset redirectTo(controller="business", action="index")>
+			</cfif>
+			
+		<cfelse>
+			<cfset edit()>
+			<cfset captchaError=true>
+			<cfset renderPage(action="edit")> 
+		</cfif>
 	</cffunction>
 	<cffunction name="getWeek">
 		<cfset test= model("employees")>
