@@ -2,7 +2,6 @@
 	
 	<cffunction name="index">
 		<cfset employeeid=13>
-
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
@@ -10,6 +9,7 @@
 		<cfset overallDay=model("overallavalibilitydays")>
 		<cfset offrequest=model("offrequests").new()>
 		<cfset shifts=model("week").findAll(where="businessid=5 AND employeeid=13",include="days(shifts(employeeshifts(skill)))")>
+		<cfset weeks = getSchedule()>
 <!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
 
 		<cfif !IsDefined("overallDay1")>
@@ -67,4 +67,59 @@
 	
 	
 	</cffunction>
+	
+	<cffunction access="private" name="getSchedule">
+		<cfset weekS = StructNew()>
+		<cfset monday = ArrayNew(1)>
+		<cfset tuesday = ArrayNew(1)>
+		<cfset wednesday = ArrayNew(1)>
+		<cfset thursday = ArrayNew(1)>
+		<cfset friday = ArrayNew(1)>
+		<cfset saturday = ArrayNew(1)>
+		<cfset sunday = ArrayNew(1)>
+		
+		<cfloop query="shifts">
+			<cfswitch expression="#shifts.day#">
+				<cfcase value="1">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(monday, #shift#)>
+				</cfcase>
+				<cfcase value="2">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(tuesday, #shift#)>
+				</cfcase>
+				<cfcase value="3">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(wednesday, #shift#)>
+				</cfcase>
+				<cfcase value="4">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(thursday, #shift#)>
+				</cfcase>
+				<cfcase value="5">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(friday, #shift#)>	
+				</cfcase>
+				<cfcase value="6">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(saturday, #shift#)>
+				</cfcase>
+				<cfcase value="7">
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
+					<cfset ArrayAppend(sunday, #shift#)>
+				</cfcase>
+			</cfswitch>
+		</cfloop>
+		
+		<cfset weekS.monday = monday>
+		<cfset weekS.tuesday = tuesday>
+		<cfset weekS.wednesday = wednesday>
+		<cfset weekS.thursday = thursday>
+		<cfset weekS.friday = friday>
+		<cfset weekS.saturday = saturday>
+		<cfset weekS.sunday = sunday>
+		
+		<cfreturn #weekS#>
+	</cffunction>
+	
 </cfcomponent>
