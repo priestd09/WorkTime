@@ -2,10 +2,14 @@
 	<cffunction name="index">
 		<cfset newEmployee=model("employees").new()>
 		<cfset newSkill = model("skills").new()>
+		
 		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
 		<cfset employeedropdown=model("skills").new()>
+		<cfset submitType="add">
+		
+		
 		<cfset getEmployees()>
-		<cfset getSkills(1)>
+		<cfset getSkills()>
 	</cffunction>
 	
 	<cffunction name="add">
@@ -14,27 +18,50 @@
 	</cffunction>
 
 	<cffunction name="edit">
-		<cfset newEmployee=model()>
+		<cfset newEmployee=model("employees").findByKey(params.key)>
+		<cfset newSkill = model("skills").new()>
+		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
+		<cfset employeedropdown=model("skills").new()>
+		<cfset getEmployees()>
+		<cfset getSkillsByEmployee()>
+		<cfset getSkills()>
+		<cfset submitType="update">
+		<cfset renderPage(action="index")>
 	</cffunction>
+	
+	
 	<cffunction name="update">
-	<!--- use the form params :) DO NOT FORGET THE SKILLS!!!! --->
-		<!---<cfset new = model("employees").create(name="Jason", email="j@s.com")> --->
-		<cfset id = params.newEmployee.id>
-		<cfset checkedSkills2=params.checkedSkills>
-		<cfloop collection=#checkedSkills2# item="skill">
-			<!--- RUN EMPLOYEESKILL UPDATE FUNCTION HERE using #skill# as the id for the skill--->
-			
-		</cfloop>
+		<cfset id=params.newEmployee.id>
 		<cfset newEmployee = model("employees").new(params.newEmployee)>
 		<cfset newEmployee.businessid = 1>
-		<cfset newEmployee.updateByKey(id, params.newEmployee)>
-		<!--- <cfset model("employeeskills").save(params.newEmployee.employeeskil)> --->
-		<cfset skills1 = model("employeeskill").findAllByEmployeesid(value=10, include="skill")>
-				<cfset getSkills(1)>
-
-		<cfset renderPage(action="index")>
-		<!--- <cfset skills = model("skills").findAllByBusinessid(value=1)> --->
-	
+		<cfset newEmployee.updateByKey(id, params.newEmployee)>		
+		<cfset checkedSkills2=params.checkedSkills>
+		<cfset delete=model("employeeskills").findAllByEmployeesid(id)>
+		
+		
+		<cfloop query="delete">
+			<cfset deleteThis=model("employeeskills").findOneByEmployeesidAndSkillid(value="#delete.employeesid#,#delete.skillid#")>
+			<cfset deleteThis.delete()>
+		</cfloop>
+		
+		
+		<cfloop collection=#checkedSkills2# item="skill">
+			<cfset newSkill=model("employeeskill").new()>
+			<cfset newSkill.employeesid=id>
+			<cfset newSkill.skillid=skill>
+			<cfset newSkill.save()>
+		</cfloop>
+		
+		<cfif newEmployee.hasErrors()>
+			<cfset getSkills()>
+			<cfset getEmployees()>
+			<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
+			<cfset employeedropdown=model("skills").new()>
+			<cfset submitType="update">
+			<cfset renderPage(action="index")>
+			<cfelse>
+				<cfset redirectTo(controller="businessemployees",action="index")>	
+		</cfif>	
 	</cffunction>
 	
 	<cffunction name="delete">
@@ -45,7 +72,6 @@
 	</cffunction>
 	
 	<cffunction name="getEmployees">
-		<cfdump var="#session#"><cfabort>
 		<cfset employees= model("employees").findAllByBusinessid(value=session.user.businessid, include="Business")>
 	</cffunction>
 	
@@ -53,31 +79,40 @@
 		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
 		<cfset test= model("employees")>
 		<cfset x = test.findAllBySkillidAndBusinessid(value="1,2",include="EmployeeSkills(skill)")>
-		<!--- This gets what it says it gets :) --->
 	</cffunction>
 	
 	<cffunction name="getSkills">
-		<cfargument name="id" required="true" type="numeric" hint="business id goes here">
-		<cfset test = model("skills")>
-		<cfset skills = test.findAllByBusinessid(value=id)>
+		<cfset skills = model("skills").findAllByBusinessid(value=session.user.businessid)>
+		<cfset checked=ArrayNew(1)>
+		<cfloop query="skills">
+			<cfset add=false>
+			<cfif IsDefined("skills.id") && IsDefined("checkedSkills")>
+				<cfloop array=#checkedSkills# index="skill">
+					<cfif skills.id eq skill>
+						<cfset add=true>
+						<cfset ArrayAppend(checked, true)>
+					</cfif>
+				</cfloop>
+			</cfif>
+			<cfif add eq false>
+				<cfset ArrayAppend(checked, false)>
+			</cfif>
+		</cfloop>
+		<cfset QueryAddColumn(skills, "checked", checked)>
 	</cffunction>
-	
+	<cffunction name="getSkillsByEmployee">
+		<cfset employeeSkill=model("employeeskills").findAllByEmployeesid(value=params.key)>
+		<cfset checkedSkills=ArrayNew(1)>
+		<cfloop query="employeeSkill">
+			<cfset ArrayAppend(checkedSkills,#employeeSkill.skillid#)>
+		</cfloop>
+	</cffunction>
 	<cffunction name="addSkills">
-	<!--- ADDING A SKILL --->
 		<cfset newSkill = model("skills").new()>
 		<cfset newSkill=model("skills").new(params.newSkill)>
 		<cfset newSkill.businessid = 1>
 		<cfset newSkill.save()>
-		
-<!--- 		<cfset test2 = model("skills").save(params.newSkill)> --->
-<!--- 		<cfset aSkill = test2.save(params.newSkill)> --->
 		<cfset renderPage(action="index")>
-	</cffunction>
-	
-	
-	
-	<cffunction name="editSkills">
-		
 	</cffunction>
 	
 </cfcomponent>
