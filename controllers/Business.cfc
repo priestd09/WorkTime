@@ -1,8 +1,9 @@
 <cfcomponent extends="Controller">
-
 	<cffunction name="add">
-		<cfset test= model("employees")>
-		<cfset testFind = test.findAll(include="Business")>
+		<cfset business=model("business").new()>
+		<cfset hours=["8:00pm","9:00pm"]>
+		<cfset timeHours=["40 hours","35 hours"]>
+		<cfset shiftHours=["4 hours","8 hours"]>
 	</cffunction>
 	<cffunction name="edit">
 		<cfset test= model("employees")>
