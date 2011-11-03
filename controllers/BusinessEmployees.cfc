@@ -1,25 +1,21 @@
 <cfcomponent extends="Controller">
 	<cffunction name="index">
-		<cfset newEmployee=model("employees").new()>
-		<cfset newSkill = model("skills").new()>
-		
+		<cfset newEmployee=model("employees").new()>		
 		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
 		<cfset employeedropdown=model("skills").new()>
 		<cfset submitType="add">
-		
-		
 		<cfset getEmployees()>
 		<cfset getSkills()>
 	</cffunction>
 	
 	<cffunction name="add">
 		<!--- DO NOT FORGET TO ADD OVERALLAVAILABILITYDAYS BASED ON BUSINESS HOURS FOR NEW EMPLOYEE --->
-		
+		<cfset newEmployee=model("employees").findByKey(params.key)>
+
 	</cffunction>
 
 	<cffunction name="edit">
 		<cfset newEmployee=model("employees").findByKey(params.key)>
-		<cfset newSkill = model("skills").new()>
 		<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
 		<cfset employeedropdown=model("skills").new()>
 		<cfset getEmployees()>

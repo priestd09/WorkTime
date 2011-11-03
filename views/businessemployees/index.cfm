@@ -1,4 +1,3 @@
-<h1>HEY!</h1>
 <cfoutput>
 <div id="createEmp">
 	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>
@@ -33,10 +32,11 @@
 	    </div>
 	    #endFormTag()#
 	</div>
+</div></div>
 </div>
 
 <div id="currEmp">
-		#select(objectName="employeedropdown", property="employee",options=employeeskills)#
+		#select(objectName="employeedropdown", property="employee",options=employeeskills,label="")#
 		<cfloop query="employees">
 				<p>#employees.name#</p>
 				#linkTo(text="edit",controller="businessemployees",action="edit",key=employees.id)#
