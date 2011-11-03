@@ -37,6 +37,45 @@
 	</div>
 </div><!--close calender div -->
 
+<cfdump var="#shifts#">
+
+<cfloop query="shifts">
+	
+	<cfswitch expression="#shifts.day#">
+		<cfcase value="1">
+			<cfoutput>
+				<div class="week">
+					<p class="dayFont">Monday</p>
+					<p class="empSkill emploMove fFont">#shifts.name#</p>
+					<p class="emploMove timesF">#shifts.starttime# - #shifts.starttime#</p>
+				</div>
+			</cfoutput>
+			<cfset day="Monday">
+			<cfoutput>#shifts.day#</cfoutput>
+		</cfcase>
+		<cfcase value="2">
+
+		</cfcase>
+		<cfcase value="3">
+
+		</cfcase>
+		<cfcase value="4">
+
+		</cfcase>
+		<cfcase value="5">
+
+		</cfcase>
+		<cfcase value="6">
+
+		</cfcase>
+		<cfcase value="7">
+
+		</cfcase>
+	</cfswitch>
+	
+</cfloop>
+
+
 <cfoutput>
 #errorMessagesFor("overallDay1")#
 

@@ -6,12 +6,10 @@
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
-<!--- 		<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
+<!--- 	<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
 		<cfset overallDay=model("overallavalibilitydays")>
 		<cfset offrequest=model("offrequests").new()>
-		<cfset shifts=model("week").findAllByBusinessid(businessid=5,include="days(shifts(employeeshifts))", where="employeeid=13")>
-
-		
+		<cfset shifts=model("week").findAll(where="businessid=5 AND employeeid=13",include="days(shifts(employeeshifts(skill)))")>
 <!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
 
 		<cfif !IsDefined("overallDay1")>
