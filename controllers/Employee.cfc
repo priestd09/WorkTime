@@ -1,6 +1,11 @@
 <cfcomponent extends="Controller">
 	
+	<cffunction name="init">
+		<cfset provides("html, pdf,xml")>
+	</cffunction>
+	
 	<cffunction name="index">
+		
 		<cfset employeeid=#session.user.employeeid#>
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
@@ -29,7 +34,7 @@
 		<cfif !IsDefined("offrequest1")>
 			<cfset offrequest1=model("offrequests").new()>
 		</cfif>
-		
+		<cfset renderWith(weeks)>
 	</cffunction>
 	
 	<cffunction name="editRequest">

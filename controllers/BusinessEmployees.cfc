@@ -14,6 +14,15 @@
 		<cfset newEmployee.businessid = session.user.businessid>
 		<cfset StructDelete(newEmployee,"id")>
 		<cfset newEmployee.save()>
+		
+		<cfset
+		    sendEmail(
+		        from="jlvanderslice@gmail.com",
+		        to=params.newEmployee.email,
+		        template="emailtemplate",
+		        subject="Thank You for Becoming a Member"
+		    )
+		>
 			
 				
 		<cfif newEmployee.hasErrors()>
