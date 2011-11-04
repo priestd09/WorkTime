@@ -5,7 +5,8 @@
 		#startFormTag(action="#submitType#")#
 		#errorMessagesFor("newEmployee")#
 		<div id="newEmpSkill" class="ffFont">
-			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit"><a href="">edit</a></span></p>
+			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit">#linkTo(text="edit",controller="businessemployees",action="editcats")#
+</span></p>
 			<cfloop query="skills">
 				<cfif IsDefined("skills.id")>
 				 #checkBoxTag(name="checkedSkills[#skills.id#]", value=skills.id, label=skills.name,  labelPlacement="after",class="cheCat", appendToLabel="<br/>", checked=skills.checked)#
