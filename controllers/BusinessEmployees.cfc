@@ -8,7 +8,6 @@
 		<cfset employeedropdown=model("skills").new()>
 	</cffunction>
 	
-	
 	<cffunction name="add">
 		<cfset newEmployee=model("employees").new(params.newEmployee)>
 		<cfset newEmployee.businessid = session.user.businessid>
@@ -181,4 +180,19 @@
 		<cfset renderPage(action="index")>
 	</cffunction>
 	
+	<cffunction name="editcats">
+		<cfset getSkills()>
+		<cfset cat=model("skills").new()>
+	</cffunction>
+	<cffunction name="addcat">
+		<cfset cat=model("skills").new(params.cat)>
+		<cfset cat.businessid = session.user.businessid>
+		<cfset cat.save()>
+		<cfif !cat.hasErrors()>
+			<cfset cat=model("skills").new()>
+		</cfif>
+		<cfset getSkills()>
+		<cfset renderPage(action="editcats")>
+	
+	</cffunction>
 </cfcomponent>
