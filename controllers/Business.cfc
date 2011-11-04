@@ -2,18 +2,31 @@
 	
 	<cffunction name="index">
 		<!----AT SOME POINT WE NEED TO MAKE SURE THAT YOU ARE ONLY GETTING A WEEK OR SO AT A TIME, SERIOUSLY QUERIES PEOPLE----->
-		
-		
 		<cfset dayNames=["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]>
 		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts))")>
 		<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
 		
 		<cfset weeks = getSchedule()>
 		<cfset info = getEmployeesByShift()>
-
 		
+		<cfset getSkills()>
+		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+		<cfset employeedropdown=model("skills").new()>
 		
 	</cffunction>
+	
+	<cffunction name="addEmployeeShift">
+		
+		<cfset employeeShift = model("employeeshift").new()>
+		<cfset employeeShift.employeeid = params.employeeid>
+		<cfset employeeShift.shiftid = params.shiftid>
+		<cfset employeeShift.skillid = params.skillid>
+		<cfset employeeShift.save()>
+		<cfset index()>
+		<cfset renderPage(action="index")>
+	
+	</cffunction>
+	
 	
 	<cffunction name="add">
 		<cfset business=model("business").new()>
@@ -77,7 +90,33 @@
 			<cfset renderPage(action="edit")> 
 		</cfif>
 	</cffunction>
-
+	
+	<cffunction name="updateList">
+		<cfset index()>
+		<cfset getEmployeesBySkill(params.employeedropdown.dropskill)>
+		
+		<cfset employeedropdown=model("skills").new(params.employeedropdown)>
+		<cfset full={time="full"}>
+		<cfset newEmployee=model("employees").new(full)>			
+		<cfset submitType="add">
+		<cfset getSkills()>
+		
+		<cfset renderPage(action="index")>
+	</cffunction>
+	
+	
+	<cffunction name="getEmployeesBySkill">
+		<cfargument name="id" required="false">
+		<cfset businessid = session.user.businessid>
+		<cfset test= model("employees")>
+		<cfset employees = test.findAllBySkillidAndBusinessid(value="#id#,#businessid#",include="EmployeeSkills(skill)")>
+	</cffunction>
+	
+	<cffunction name="getSkills">
+		<cfset skills = model("skills").findAllByBusinessid(value=session.user.businessid)>
+	</cffunction>
+	
+	
 	<cffunction access="private" name="getSchedule">
 		<cfset weekS = StructNew()>
 		<cfset monday = ArrayNew(1)>
@@ -131,7 +170,8 @@
 		<cfreturn #weekS#>
 
 	</cffunction>
-
+	
+	
 	<cffunction name="getEmployeesByShift">
 		
 		<cfloop collection=#weeks# item="day">

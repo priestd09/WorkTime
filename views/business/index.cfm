@@ -3,7 +3,7 @@
 <div class="move">#linkto(text="Sign Out", controller="home", action="signout")#</div>
 #linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#<br />
 #linkto(text="Requests", controller="business", action="getrequests")#
-
+</div>
 <cfif flashKeyExists("success")>
 	#flash("success")#
 </cfif>
@@ -13,7 +13,8 @@
 		<p class="tFont">#day#</p>
 		<div id="calenderDay">
 			<cfloop array="#weeks[day]#" index="shift">
-				<div class="cDay">
+				
+				<div class="cDay" data="#shift.id#">
 					<p class="empSkill emploMove fFont">#shift.start# - #shift.end#</p>
 					<cfloop collection=#shift.skills# item="skill">
 					
@@ -23,63 +24,40 @@
 				</div>
 			</cfloop>
 		</div><!--close calender div -->
-		
 	</cfloop>
-
-	<p id="mainDateDays" class="ffFont">oct 31 - Nov 6</p>
-			
+	</div>
+	</div>
 	
-			
+	
+	<div id="currEmp">
+		#startFormTag(action="updateList")#
+			#select(objectName="employeedropdown", property="dropskill",options=skills,label="")#
+	        #submitTag(class="submitBtn bFont",value="Update")#
+		#endFormTag()#
 
+<!--- 	<cfdump var="#employees#"><cfabort> --->
+			<cfloop query="employees">
+					<p class="#employees.employeesid# #employees.employeesid#">#employees.name#</p>
+			</cfloop>
 			
-				
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">noon - 5pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>
-					<p class="emploMove timesF">4 Mangers</p>
-				</div>
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">5 - 10pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>					
-					<p class="emploMove timesF">4 Managers</p>						
-				</div>
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">5 - 10pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>					
-					<p class="emploMove timesF">4 Managers</p>					
-				</div>
-
-			
-		</div><!-- close daylist	 -->	
+	</div>
+	<!----
+	<div id="detaildropMenu">
 		
-		<div class="dayList">
-			<p class="tFont">tuesday, Nov 1</p>
+				<form>
+					<select name="sTime">
+						<option value="choose an employee category">choose an employee category</option>
+						<option value="Joe Smith">Joe Smith</option>
+						<option value="Joe Smith">Joe Smith</option>
+						<option value="Joe Smith">Joe Smith</option>
+					</select>
+						
+				</form>	
 
-			<div id="calenderDay">
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">5pm - 10pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>
-					<p class="emploMove timesF">4 Managers</p>
-				</div>
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">noon - 5pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>
-					<p class="emploMove timesF">4 Mangers</p>
-				</div>
-				<div class="cDay">
-					<p class="empSkill emploMove fFont">5 - 10pm</p>
-					<p class="emploMove timesF">4 Cashers</p>
-					<p class="emploMove timesF">5 Stock</p>					
-					<p class="emploMove timesF">4 Managers</p>						
-				</div>
-			</div><!--close calender div -->
-
-
-
-
+		
+		</div><!-- closedetaildropmenu -->
+	---->
+	
+	
+	
 </cfoutput>

@@ -8,6 +8,7 @@
 		<cfset employeedropdown=model("skills").new()>
 	</cffunction>
 	
+	
 	<cffunction name="add">
 		<cfset newEmployee=model("employees").new(params.newEmployee)>
 		<cfset newEmployee.businessid = session.user.businessid>
