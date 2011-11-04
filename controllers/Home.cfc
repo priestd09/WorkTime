@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller">
 	<cffunction name="landing">
 	
-		<!---- CHECK FOR BUSINESS IDEA IN PARAMS.KEY --->
+		<!---- CHECK FOR BUSINESS ID IN PARAMS.KEY --->
 		
 		<cfset user= model("user").new()>
 		<cfset newUser= model("user").new()>
@@ -21,10 +21,10 @@
 			<cfset session.user.id = user.id>
 			<cfset session.user.businessid = user.businessid>
 			<cfset session.user.usertypeid = user.usertypeid>
-			<!------ TODO PUT EMPLOYEE ID IN THE SESSION---->			
 			<cfif user.usertypeid eq 2>
 				<cfset redirectTo(controller="business",action="index")>	
 			<cfelseif user.usertypeid eq 1>
+				<cfset session.user.employeeid =user.employee.id>
 				<cfset redirectTo(controller="employee", action="index")>
 			</cfif>
 			
@@ -40,16 +40,33 @@
 	<cffunction name="signup">
 		<cfset newUser= model("user").new(params.newUser)>
 		<cfset newUser.usertypeid = session.user.usertypeid>
-		<!---TODO MAKE THIS ADD THE USER ID TO THE EMPLOYEE --->
+		<cfif session.user.usertypeid eq 1>
+			<cfset newUser.businessid = session.user.businessid>
+		</cfif>
 		<cfset newUser.save()>
 
 		<cfif newUser.hasErrors()>
 			<cfset user= model("user").new()>
 			<cfset renderPage(action="landing")>
-		<cfelse>	
-			<cfset session.user.id = newUser.id>
-			<cfset flashInsert(success="You've successfully registered :)")>
-			<cfset redirectTo(controller="business", action="index")>
+		<cfelse>
+			<cfif session.user.usertypeid eq 1>
+				<cfset employees= model("employee").findAll()>
+				<cfloop query="employees">
+					<cfif employees.email eq params.newUser.email>
+							<cfset employee=model("employee").findByKey(employees.id)>
+							<cfset employee.userid=newUser.id>
+							<cfset employee.save()>
+					</cfif>
+				</cfloop>
+				<cfset session.user.id = newUser.id>
+				<cfset session.user.employeeid = employee.id>
+				<cfset flashInsert(success="You've successfully registered :)")>
+				<cfset redirectTo(controller="employee", action="index")>
+			<cfelse>
+				<cfset session.user.id = newUser.id>
+				<cfset flashInsert(success="You've successfully registered :)")>
+				<cfset redirectTo(controller="business", action="index")>
+			</cfif>
 		</cfif>
 	
 	</cffunction>

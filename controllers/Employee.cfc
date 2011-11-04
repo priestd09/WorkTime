@@ -1,12 +1,12 @@
 <cfcomponent extends="Controller">
 	
 	<cffunction name="index">
-		<cfset employeeid=13>
+		<cfset employeeid=#session.user.employeeid#>
 		<cfset getOverall(employeeid)>
 		<cfset getRequestByEmployee(employeeid)>
 		<cfset hours=["All Day","8:00pm","9:00pm"]>
 <!--- 	<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
-		<cfset overalldays=model("overallavalibilitydays").findAll(where="employeeid=13")>
+		<cfset overalldays=model("overallavalibilitydays").findAll(where="employeeid=#session.user.employeeid#")>
 		<cfset options= ["400", "800", "1200", "2200"]>
 		<cfloop query="overalldays">
 			<cfset struct=StructNew()>
@@ -17,9 +17,9 @@
 			<cfset "day#overalldays.weekday#"=model("overallavalibilitydays").new(struct)>
 		</cfloop>
 		<cfset offrequest=model("offrequests").new()>
-		<cfset shifts=model("week").findAll(where="businessid=5 AND employeeid=13",include="days(shifts(employeeshifts(skill)))")>
+		<cfset shifts=model("week").findAll(where="businessid=#session.user.businessid# AND employeeid=#session.user.employeeid#",include="days(shifts(employeeshifts(skill)))")>
 		<cfset weeks = getSchedule()>
-		<cfset getRequestByEmployee(13)>
+		<cfset getRequestByEmployee(session.user.employeeid)>
 
 	<!--- 		IF YOU ARE REFRESHING THE SAME PAGE --->
 
@@ -41,7 +41,7 @@
 	<cffunction name="saveOverall">
 		<cfset weekday=params.key>
 		<cfset overallDay1=model("overallavalibilitydays").findByKey(params["day#params.key#"].id)>
-		<cfset overallDay1.employeeid = 13>
+		<cfset overallDay1.employeeid = #session.user.employeeid#>
 		<cfset overallDay1.start = params["day#params.key#"].start>
 		<cfset overallDay1.end = params["day#params.key#"].end>
 		<cfset overallDay1.weekday=weekday>
@@ -62,8 +62,8 @@
 	</cffunction>
 	
 	<cffunction name="addRequest">
-		<cfset employeeid=13>
-		<cfset businessid=5>
+		<cfset employeeid=#session.user.employeeid#>
+		<cfset businessid=#session.user.businessid#>
 		<cfset pending="pending">
 		<cfset offrequest1=model("offrequests").new(params.offrequest)>
 		<cfset offrequest1.employeeid=employeeid>
