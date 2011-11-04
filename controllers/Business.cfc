@@ -168,4 +168,22 @@
 		<cfreturn #weekS#>
 	</cffunction>
 
+	<cffunction name="getrequests">
+		<cfset requests=model("offrequests").findAllByPendingAndBusinessid(value="pending,#session.user.businessid#",include="employee")>
+		
+	</cffunction>
+	<cffunction name="approve">
+
+		<cfset req = model("offrequests").findByKey(params.key)>
+		<cfset req.update(pending="approved")>	
+		<cfset getrequests()>
+		<cfset redirectTo(controller="business",action="getrequests")>
+	</cffunction>
+	<cffunction name="deny">
+		<cfset req = model("offrequests").findByKey(params.key)>
+		<cfset req.update(pending="denied")>
+		<cfset getrequests()>
+		<cfset redirectTo(controller="business",action="getrequests")>
+
+	</cffunction>
 </cfcomponent>

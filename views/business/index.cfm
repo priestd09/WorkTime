@@ -1,8 +1,9 @@
 <cfoutput>
 <h1>you are signed in :)</h1>
-				<div class="move"><cfoutput>#linkto(text="Sign Out", controller="home", action="signout")#</cfoutput></div>
-<cfdump var="#session#">
-<cfoutput>#linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#</cfoutput>
+<div class="move"><cfoutput>#linkto(text="Sign Out", controller="home", action="signout")#</cfoutput></div>
+<cfoutput>#linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#<br />
+#linkto(text="Requests", controller="business", action="getrequests")#
+</cfoutput>
 <cfif flashKeyExists("success")>
 	#flash("success")#
 </cfif>
