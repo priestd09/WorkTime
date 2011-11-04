@@ -21,7 +21,7 @@
 			<cfset session.user.id = user.id>
 			<cfset session.user.businessid = user.businessid>
 			<cfset session.user.usertypeid = user.usertypeid>
-			
+			<!------ TODO PUT EMPLOYEE ID IN THE SESSION---->			
 			<cfif user.usertypeid eq 2>
 				<cfset redirectTo(controller="business",action="index")>	
 			<cfelseif user.usertypeid eq 1>
