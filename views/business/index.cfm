@@ -1,22 +1,24 @@
 <cfoutput>
 <h1>you are signed in :)</h1>
-<div class="move"><cfoutput>#linkto(text="Sign Out", controller="home", action="signout")#</cfoutput></div>
-<cfoutput>#linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#<br />
+<div class="move">#linkto(text="Sign Out", controller="home", action="signout")#</div>
+#linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#<br />
 #linkto(text="Requests", controller="business", action="getrequests")#
-</cfoutput>
+
 <cfif flashKeyExists("success")>
 	#flash("success")#
 </cfif>
 <div id="dayListTop">
-<div class="dayList">
-	<cfloop collection=#weeks# item="day">
+<div class="dayList">	
+	<cfloop array="#dayNames#" index="day">
 		<p class="tFont">#day#</p>
-		
 		<div id="calenderDay">
 			<cfloop array="#weeks[day]#" index="shift">
 				<div class="cDay">
 					<p class="empSkill emploMove fFont">#shift.start# - #shift.end#</p>
+					<cfloop collection=#shift.skills# item="skill">
 					
+						<p class="emploMove timesF">#shift.skills[skill].count# #shift.skills[skill].name#</p>
+					</cfloop> 
 				
 				</div>
 			</cfloop>

@@ -2,17 +2,15 @@
 	
 	<cffunction name="index">
 		<!----AT SOME POINT WE NEED TO MAKE SURE THAT YOU ARE ONLY GETTING A WEEK OR SO AT A TIME, SERIOUSLY QUERIES PEOPLE----->
-<!--- 	<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
-		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts))")>
-<!--- 		<cfdump var="#shifts#"><cfabort> --->
-		<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
-		<!--- <cfdump var="#shiftnames#"><cfabort> --->
 		
-<!--- 		<cfdump var="#employeeshifts#"><cfabort> --->
+		
+		<cfset dayNames=["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]>
+		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts))")>
+		<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
+		
 		<cfset weeks = getSchedule()>
 		<cfset info = getEmployeesByShift()>
-		
-<!--- 		<cfdump var="#shifts#"><cfabort> --->
+
 		
 		
 	</cffunction>
@@ -124,15 +122,14 @@
 		</cfloop>
 		<cfset weekS.monday = monday>
 		<cfset weekS.tuesday = tuesday>
-<!--- 	<cfdump var="#weekS.tuesday#"><cfabort> --->
+	<!--- 	<cfdump var="#weekS.tuesday#"><cfabort> --->
 		<cfset weekS.wednesday = wednesday>
 		<cfset weekS.thursday = thursday>
 		<cfset weekS.friday = friday>
 		<cfset weekS.saturday = saturday>
 		<cfset weekS.sunday = sunday>
-<!--- 	<cfdump var="#weekS#"><cfabort> --->
 		<cfreturn #weekS#>
-		
+
 	</cffunction>
 
 	<cffunction name="getEmployeesByShift">
@@ -167,11 +164,9 @@
 					
 					<cfset shift.skills = skills>
 					<cfset shift.employees = employees>
-					<cfdump var="#shift#">
 			</cfloop>
 			
 		</cfloop>
-		<cfabort>
 	</cffunction>
 
 
