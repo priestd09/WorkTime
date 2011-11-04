@@ -16,9 +16,6 @@
 			<cfloop array="#weeks[day]#" index="shift">
 				<div class="cDay">
 					<p class="empSkill emploMove fFont">#shift.start# - #shift.end#</p>
-						<cfloop array="#shift.skills#" index="skill">
-							#skill#						
-						</cfloop>
 					
 				
 				</div>

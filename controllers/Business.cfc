@@ -3,8 +3,15 @@
 	<cffunction name="index">
 		<!----AT SOME POINT WE NEED TO MAKE SURE THAT YOU ARE ONLY GETTING A WEEK OR SO AT A TIME, SERIOUSLY QUERIES PEOPLE----->
 <!--- 	<cfset dayNames=("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")> --->
-		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts(employeeshifts(skill,employee)))")>
+		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts))")>
+<!--- 		<cfdump var="#shifts#"><cfabort> --->
+		<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
+		<!--- <cfdump var="#shiftnames#"><cfabort> --->
+		
+<!--- 		<cfdump var="#employeeshifts#"><cfabort> --->
 		<cfset weeks = getSchedule()>
+		<cfset info = getEmployeesByShift()>
+		
 <!--- 		<cfdump var="#shifts#"><cfabort> --->
 		
 		
@@ -85,88 +92,88 @@
 		
 		<cfloop query="shifts">
 			<cfswitch expression="#shifts.day#">
-				<cfcase value="1">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+				<cfcase value="1">				
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(monday, #shift#)>
 				</cfcase>
 				<cfcase value="2">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(tuesday, #shift#)>
 				</cfcase>
 				<cfcase value="3">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(wednesday, #shift#)>
 				</cfcase>
 				<cfcase value="4">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(thursday, #shift#)>
 				</cfcase>
 				<cfcase value="5">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(friday, #shift#)>	
 				</cfcase>
 				<cfcase value="6">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(saturday, #shift#)>
 				</cfcase>
 				<cfcase value="7">
-					<cfset employees=[]>
-					<cfset skills=[]>
-					<cfset ArrayAppend(employees, #shifts.employeename#)>
-					<cfset ArrayAppend(skills, #shifts.name#)>
-					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", name="#shifts.name#"}>
-					<cfset shift.employees = employees>
-					<cfset shift.skills = skills>
+					<cfset shift = {start = "#shifts.starttime#", end= "#shifts.endtime#", id="#shifts.shiftid#"}>
 					<cfset ArrayAppend(sunday, #shift#)>
 				</cfcase>
 			</cfswitch>
 		</cfloop>
 		<cfset weekS.monday = monday>
-<!--- 		<cfdump var="#weekS.monday#"><cfabort> --->
 		<cfset weekS.tuesday = tuesday>
+<!--- 	<cfdump var="#weekS.tuesday#"><cfabort> --->
 		<cfset weekS.wednesday = wednesday>
 		<cfset weekS.thursday = thursday>
 		<cfset weekS.friday = friday>
 		<cfset weekS.saturday = saturday>
 		<cfset weekS.sunday = sunday>
+<!--- 	<cfdump var="#weekS#"><cfabort> --->
 		<cfreturn #weekS#>
+		
 	</cffunction>
+
+	<cffunction name="getEmployeesByShift">
+		
+		<cfloop collection=#weeks# item="day">
+			
+			<cfloop array="#weeks[day]#" index="shift">
+				
+				<cfset employee=model("employeeshift").findAll(include="employee,shift,skill", where="shiftid=#shift.id#")>
+					
+					<cfset employees=ArrayNew(1)>
+					
+					<cfloop query="employee">
+						<cfset emp=StructNew()>
+						<cfset emp.name = employee.name>
+						<cfset emp.skillname = employee.skillname>
+						<cfset ArrayAppend(employees, #emp#)>
+					</cfloop>
+					
+					<cfset skills = StructNew()>
+					<!--- getting the skill names into an "struct" --->
+					<cfloop query="skillnames">
+						<cfset skills[#skillnames.name#]=StructNew()>
+						<cfset skills[#skillnames.name#].name = #skillnames.name#>
+						<cfset skills[#skillnames.name#].count = 0>
+					</cfloop>
+					
+					
+					<cfloop array="#employees#" index="emp">
+						<cfset skills[#emp.skillname#].count += 1>
+					</cfloop>
+					
+					<cfset shift.skills = skills>
+					<cfset shift.employees = employees>
+					<cfdump var="#shift#">
+			</cfloop>
+			
+		</cfloop>
+		<cfabort>
+	</cffunction>
+
 
 	<cffunction name="getrequests">
 		<cfset requests=model("offrequests").findAllByPendingAndBusinessid(value="pending,#session.user.businessid#",include="employee")>
