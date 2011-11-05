@@ -10,20 +10,19 @@
 			<cfset weeks = getSchedule()>
 			<cfset info = getEmployeesByShift()>
 			<cfset getSkills()>
-			<cfset id=0>
-			<cfset getEmployeesBySkill()>
 		<cfelse>
 			<cfset redirectTo(controller="business", action="add")>
 		</cfif>
 			<cfset business = model("business").findByKey(session.user.businessid)>
 			<cfset businessDays = model("businessdays").findOneByBusinessid(session.user.businessid)>
-			
-					
-			
-			
-			
-		<cfset employeedropdown=model("skills").new()>
-		
+
+			<cfif IsDefined("params.key")>
+				<cfset skillid=params.key>
+				<cfelse>
+					<cfset skillid=#skills.getrow(0).getcolumn(0)#>
+					<cfset updateList(skillid)>
+			</cfif>
+			<cfset updateList(skillid)>
 	</cffunction>
 	
 	<cffunction name="addEmployeeShift">
@@ -32,8 +31,8 @@
 		<cfset employeeShift.shiftid = params.shiftid>
 		<cfset employeeShift.skillid = params.skillid>
 		<cfset employeeShift.save()>
-		<cfset index()>
-		<cfset renderPage(action="index")>
+		<cfset renderWith(action="index")>
+
 	</cffunction>
 	
 	
@@ -134,26 +133,25 @@
 	</cffunction>
 	
 	<cffunction name="updateList">
-		<cfset index()>
-		<cfset getEmployeesBySkill(params.employeedropdown.dropskill)>
-		
-		<cfset employeedropdown=model("skills").new(params.employeedropdown)>
+		<cfargument name="skillid" required="false">
+		<cfset empstruc=StructNew()>
+		<cfset empstruc.dropskill=skillid>
+		<cfset getEmployeesBySkill(skillid)>
+		<cfset employeedropdown=model("skills").findByKey(skillid)>
 		<cfset full={time="full"}>
 		<cfset newEmployee=model("employees").new(full)>			
 		<cfset submitType="add">
 		<cfset getSkills()>
-		
-		<cfset renderPage(action="index")>
+	</cffunction>
+	<cffunction name="redirectToKey">
+		<cfset redirectTo(controller="business",action="index",key=params.employeedropdown.id)>
 	</cffunction>
 	
 	
 	<cffunction name="getEmployeesBySkill">
-		<cfargument name="id" required="false">
 		<cfset businessid = session.user.businessid>
 		<cfset test= model("employees")>
-<!--- 		<cfdump var="#id#"><cfabort> --->
-
-		<cfset employees = test.findAllBySkillidAndBusinessid(value="#id#,#businessid#",include="EmployeeSkills(skill)")>
+		<cfset employees = test.findAllBySkillidAndBusinessid(value="#skillid#,#businessid#",include="EmployeeSkills(skill)")>
 	</cffunction>
 	
 	<cffunction name="getSkills">
@@ -205,7 +203,6 @@
 		</cfloop>
 		<cfset weekS.monday = monday>
 		<cfset weekS.tuesday = tuesday>
-	<!--- 	<cfdump var="#weekS.tuesday#"><cfabort> --->
 		<cfset weekS.wednesday = wednesday>
 		<cfset weekS.thursday = thursday>
 		<cfset weekS.friday = friday>

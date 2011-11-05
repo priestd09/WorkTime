@@ -1,5 +1,4 @@
 <cfoutput>
-</div>
 #startFormTag(action="update")#
 #errorMessagesFor("business")#
 
