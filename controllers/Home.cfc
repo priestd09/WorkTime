@@ -11,8 +11,7 @@
 			<cfset session.user.usertypeid = 1>
 		<cfelse>
 			<cfset session.user.usertypeid = 2>
-		</cfif>
-		
+		</cfif>		
 	</cffunction>
 	
 	<cffunction name="signin">
@@ -38,13 +37,16 @@
 	
 	
 	<cffunction name="signup">
+		<cfset landing()>
 		<cfset newUser= model("user").new(params.newUser)>
 		<cfset newUser.usertypeid = session.user.usertypeid>
 		<cfif session.user.usertypeid eq 1>
-			<cfset newUser.businessid = session.user.businessid>
+		<!--- THIS WAS CAUSING STUPID ERROR- deals with the login --->
+<!--- 			<cfset newUser.businessid = session.user.businessid> --->
 		</cfif>
 		<cfset newUser.save()>
-
+<!--- 		<cfset thisuser = model("user").findOneByEmail(value="#newUser.email#")> --->
+<!--- 		<cfdump var="#thisuser#"><cfabort> --->
 		<cfif newUser.hasErrors()>
 			<cfset user= model("user").new()>
 			<cfset renderPage(action="landing")>

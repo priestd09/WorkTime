@@ -4,7 +4,10 @@
 		<cfset newEmployee=model("employees").new(full)>		
 		<cfset submitType="add">
 		<cfset getSkills()>
-		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+<!--- 		<cfdump var="#skills#"><cfabort> --->
+<!--- 		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)> --->
+		<cfset id = 0>
+		<cfset getEmployeesBySkill()>
 		<cfset employeedropdown=model("skills").new()>
 	</cffunction>
 	

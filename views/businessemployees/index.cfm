@@ -1,3 +1,4 @@
+<!--- <cfdump var="#skills#"><cfabort> --->
 <cfoutput>
 <div id="createEmp">
 	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>

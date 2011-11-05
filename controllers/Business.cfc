@@ -3,14 +3,20 @@
 	<cffunction name="index">
 		<!----AT SOME POINT WE NEED TO MAKE SURE THAT YOU ARE ONLY GETTING A WEEK OR SO AT A TIME, SERIOUSLY QUERIES PEOPLE----->
 		<cfset dayNames=["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]>
-		<cfset shifts=model("week").findAll(where="businessid=5",include="days(shifts))")>
-		<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
 		
-		<cfset weeks = getSchedule()>
-		<cfset info = getEmployeesByShift()>
+		<cfif IsDefined("session.user.businessid")>
+			<cfset shifts=model("week").findAll(where="businessid=#session.user.businessid#",include="days(shifts))")>
+			<cfset skillnames=model("skills").findAllByBusinessid(value="#session.user.businessid#")>
+			<cfset weeks = getSchedule()>
+			<cfset info = getEmployeesByShift()>
+			<cfset getSkills()>
+			<cfset id=0>
+			<cfset getEmployeesBySkill()>
+		<cfelse>
+			<cfset redirectTo(controller="business", action="add")>
+		</cfif>
 		
-		<cfset getSkills()>
-		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+		
 		<cfset employeedropdown=model("skills").new()>
 		
 	</cffunction>
@@ -50,6 +56,7 @@
 			<cfset session.user.businessid=business.id>
 			<cfset user=model("user").findByKey(session.user.id)>
 			<cfset user.businessid=business.id>
+<!--- 			<cfdump var="#session#"><cfabort> --->
 			<cfset user.save()>
 			<cfset flashInsert(success="You've successfully set up your business")>
 			<cfset redirectTo(controller="business", action="index")>
@@ -108,6 +115,8 @@
 		<cfargument name="id" required="false">
 		<cfset businessid = session.user.businessid>
 		<cfset test= model("employees")>
+<!--- 		<cfdump var="#id#"><cfabort> --->
+
 		<cfset employees = test.findAllBySkillidAndBusinessid(value="#id#,#businessid#",include="EmployeeSkills(skill)")>
 	</cffunction>
 	
@@ -190,12 +199,13 @@
 					
 					<cfset skills = StructNew()>
 					<!--- getting the skill names into an "struct" --->
+					
+					
 					<cfloop query="skillnames">
 						<cfset skills[#skillnames.name#]=StructNew()>
 						<cfset skills[#skillnames.name#].name = #skillnames.name#>
 						<cfset skills[#skillnames.name#].count = 0>
 					</cfloop>
-					
 					
 					<cfloop array="#employees#" index="emp">
 						<cfset skills[#emp.skillname#].count += 1>
