@@ -18,7 +18,8 @@
 		<cfset StructDelete(newEmployee,"id")>
 		<cfset newEmployee.save()>
 		
-		<cfset
+		<!---
+<cfset
 		    sendEmail(
 		        from="jlvanderslice@gmail.com",
 		        to=params.newEmployee.email,
@@ -26,6 +27,7 @@
 		        subject="Thank You for Becoming a Member"
 		    )
 		>
+--->
 			
 				
 		<cfif newEmployee.hasErrors()>
