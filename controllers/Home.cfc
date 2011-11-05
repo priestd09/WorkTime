@@ -15,7 +15,8 @@
 	
 	
 	<cffunction name="signin">
-		<cfset user=model("user").findOne(where="email='#params.user.email#' AND password='#params.user.password#'", include="employee")>
+		<cfset password = hash(params.user.password & params.user.email,"MD5")>
+		<cfset user=model("user").findOne(where="email='#params.user.email#' AND password='#password#'", include="employee")>
 		<cfif IsObject(user)>
 			<cfset session.user.id = user.id>
 			<cfset session.user.businessid = user.businessid>
@@ -40,7 +41,7 @@
 
 		<cfset newUser= model("user").new(params.newUser)>
 		<cfset newUser.usertypeid = session.user.usertypeid>
-
+		<cfset newUser.password = hash(params.newUser.password & params.newUser.email,"MD5")>
 		<cfif session.user.usertypeid eq 1>
 			<cfset newUser.businessid = session.user.businessid>
 		</cfif>
