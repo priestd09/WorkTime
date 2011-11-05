@@ -85,6 +85,12 @@
 	<cffunction name="test">
 	
 		<cfset request.employees=model("employees")>
+		<cfset request.employeesQ=model("employees").findAll()>
+		<cfset request.scheduleQ = model("week").findAll()>
+		<cfset request.users = model("users")>
+		<cfset request.usersQ = model("users").findAll()>
+		<cfset request.user = model("users").findOneById(1)>
+		<cfset request.user = model("users").findOneById(1)>
 	
 	</cffunction>
 	
