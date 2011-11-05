@@ -5,14 +5,14 @@
 		
 		<cfset user= model("user").new()>
 		<cfset newUser= model("user").new()>
-		
 		<cfif IsDefined("params.key")>
 			<cfset session.user.businessid = params.key>
 			<cfset session.user.usertypeid = 1>
 		<cfelse>
 			<cfset session.user.usertypeid = 2>
-		</cfif>		
+		</cfif>	
 	</cffunction>
+	
 	
 	<cffunction name="signin">
 		<cfset user=model("user").findOne(where="email='#params.user.email#' AND password='#params.user.password#'", include="employee")>
@@ -37,7 +37,7 @@
 	
 	
 	<cffunction name="signup">
-		<cfset landing()>
+
 		<cfset newUser= model("user").new(params.newUser)>
 		<cfset newUser.usertypeid = session.user.usertypeid>
 		<cfif session.user.usertypeid eq 1>
@@ -60,6 +60,9 @@
 							<cfset employee.save()>
 					</cfif>
 				</cfloop>
+				<cfif employees.recordcount eq 0>
+					<cfset redirectTo(controller="home", action="landing")> 
+				</cfif>
 				<cfset session.user.id = newUser.id>
 				<cfset session.user.employeeid = employee.id>
 				<cfset flashInsert(success="You've successfully registered :)")>

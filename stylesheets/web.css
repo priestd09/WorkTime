@@ -8,6 +8,9 @@ body{
 background-color:#3D5166;
 }
 
+#calendarDay .shit{
+	background-color: red;
+}
 
 #wrapper{
 width: 1015px;
@@ -19,6 +22,11 @@ clear:both;
 /* min-height:544px; */
 }
 
+.draggEmp{
+
+	width: auto;
+	display: inline;
+}
 
 
 #content{

@@ -1,10 +1,5 @@
 <cfoutput>
-<div class="move">#linkto(text="Sign Out", controller="home", action="signout")#</div>
-#linkto(text="Add/Edit Employees", controller="businessemployees", action="index")#<br />
-#linkto(text="Requests", controller="business", action="getrequests")#
-#linkto(text="Edit Account", controller="business", action="edit")#
 
-</div>
 <cfif flashKeyExists("success")>
 	#flash("success")#
 </cfif>
@@ -33,13 +28,13 @@
 	
 <cfif IsDefined("session.user.businessid")>
 	<div id="currEmp">
-		#startFormTag(action="updateList")#
-			#select(objectName="employeedropdown", property="dropskill",options=skills,label="")#
+		#startFormTag(action="redirectToKey")#
+			#select(objectName="employeedropdown", property="id",options=skills,label="")#
 	        #submitTag(class="submitBtn bFont",value="Update")#
 		#endFormTag()#
 
 		<cfloop query="employees">
-			<p class="draggEmp" employeeid="#employees.employeesid#" skillid="#employees.employeesid#">#employees.name#</p>
+			<p class="draggEmp" employeeid="#employees.employeesid#" skillid="#employees.skillid#">#employees.name#</p>
 		</cfloop>
 </cfif>
 	</div>
