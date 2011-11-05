@@ -51,8 +51,8 @@
 		<cfset overallDay1.end = params["day#params.key#"].end>
 		<cfset overallDay1.weekday=weekday>
 		<cfset overallDay1.save()>
-		<cfset index()>
-		<cfset renderPage(action="index")>
+<!--- 		<cfset index()> --->
+		<cfset redirectTo(controller="employee", action="index")>
 	</cffunction>
 	
 	<cffunction name="getOverall" hint="returns all the days that the employee has set for their overall availibility">
@@ -76,8 +76,7 @@
 		<cfset offrequest1.pending=pending>
 		<cfset StructDelete(offrequest1, "id")>
 		<cfset offrequest1.save()>
-		<cfset index()>
-		<cfset renderPage(action="index")>
+		<cfset redirectTo(controller="employee", action="index")>
 	</cffunction>
 	
 	<cffunction name="deleteRequest">
