@@ -23,6 +23,8 @@ clear:both;
 
 #content{
 background-image:url('../images/background.gif');
+width:960px;
+overflow: hidden;
 float:left;
 padding-bottom:100px;
 margin-bottom: 50px;
@@ -32,8 +34,22 @@ margin-bottom: 50px;
 clear: both;
 float: left;/* questionable both the float and clear and padding  */
 /* padding-right:200px; */
-padding-top: 20px;
+padding: 20px;
 background-color:white;
+width: 960px;
+margin-bottom: 20px;
+}
+form{
+	overflow: hidden;
+}
+form {
+	font: left;
+	clear: left;
+}
+#header form {
+	float: right;
+	clear: none;
+	width:650px;
 }
 
 #imagesAdjLo{
@@ -132,7 +148,8 @@ border-radius: 5px;
 padding: 20px;
 }
 
-#signUp{width:330px;
+#signUp{
+width:300px;
 -moz-border-radius:5px;
 border-radius: 5px; 
 border: 2pt solid #3D5166;
@@ -207,6 +224,79 @@ margin-top:10px;
 margin-bottom:10px;
 
 }
+/*-------------------------------------------------- detailskill */
+#dayFil{
+margin-left:330px;
+}
+
+#editadd{
+margin-left:50px;
+background-color:#fff;
+border: 1px solid #231F20;
+padding:5px 5px 5px 5px;
+}
+#weekFil{margin-left:10px;}
+
+#detaildropMenu{
+float: left;
+margin-left:80px;
+margin-top:20px;
+}
+
+#guide{
+float: left;
+width:650px;
+}
+#pubMo{
+margin-left:50px;
+}
+#guide2{
+float: left;
+}
+
+#pubBtn{
+margin-left: 50px;
+}
+#detaildropMenu select{
+width:270px;
+}
+
+.personelDis{
+clear:both;
+float: left; 
+margin-left:20px;
+background-color: #fff;
+border:2px solid #3D5166;
+-moz-border-radius: 3px;
+border-radius: 3px;
+width: 590px;
+}
+
+
+.perListTop{/* border:2px solid #3D5166; */
+float: left;
+margin-left:30px; 
+/* width: 550px; */
+}
+.pSkill{
+float: left;
+margin-right:20px;
+margin-left:30px; 
+/* margin-bottom:20px; */
+/* height: 142px; */
+}
+
+.pSkill p{
+margin-top:5px;
+}
+
+#mainDateDaysClass{
+margin-left:50px;
+margin-bottom:10px;
+margin-top:20px;
+float: left;
+}
+
 /*_________________________________________________ dashemployee */
 #editA{
 margin-right:5px;
@@ -421,10 +511,18 @@ border: 2px solid #3D5166;
 -moz-border-radius:3px;
 border-radius:3px;
 background-color: white;
-width:350px;
-margin-left:auto;
-margin-right: auto;
-margin-top: 100px; 
+width:440px;
+overflow: hidden;
+margin: 0 auto;
+padding: 20px;
+}
+#createB.add{
+	width:330px;
+}
+#createB .submitBtn{
+	float: right;
+	margin-top: 20px;
+
 }
 #nameFi{
 margin-left: 30px;
@@ -438,6 +536,7 @@ clear: both;
 
 #bussName{
 margin-left:45px;
+clear: left;
 }
 
 #arrOp{
@@ -446,7 +545,26 @@ clear: both;
 
 .sTimeid{
 float: left;
-margin-left:10px;
+margin-right:20px;
+}
+.sTimeid label{
+	float: left;
+}
+.sTimeid select, #createB .fInput{
+	float: left;
+	clear: left;
+}
+#createB .fFont label{
+	margin: 0;
+	float: left;
+	clear: left;
+}
+#createB .fFont {
+	margin: 10px 0;
+}
+#hour {
+	float: left;
+	
 }
 
 #addcat{margin-bottom:20px}
@@ -462,19 +580,18 @@ margin-top:30px;
 margin-left:180px;
 margin-bottom: 10px;
 }
-
+#shiftFi .fFont {
+	margin-right: 20px;
+	
+}
 #shiftFi1{
-margin-left:20px;
-margin-top: 20px;
+	float: left;
+	clear: left;
 }
 
 #shiftFi2{
-clear: both;
 float: left;
-margin-left:20px;
-margin-top: 20px;
-margin-bottom: 20px;
-
+clear: left;
 }
 /*------------------------------------------------ empRequ */
 #eRequ{margin-left: 30px;

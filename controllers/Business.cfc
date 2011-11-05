@@ -15,8 +15,24 @@
 		<cfelse>
 			<cfset redirectTo(controller="business", action="add")>
 		</cfif>
-		
-		
+			<cfset business = model("business").findAll(where="id=#session.user.businessid#", include="businessdays")>
+			<cfdump var="#business#"><cfabort>
+			<!---
+<cfset week=model("weeks").new()>
+			<cfset week.businessid = session.user.businessid>
+			<cfset week.save()>	
+			
+			<cfloop from="1" to="7" index="i">
+				<cfset day=model("days").new()>
+				<cfset day.weekid = week.id>
+				<cfset day.day = i>
+				<cfset day.save()>
+			</cfloop>
+--->
+					
+			
+			
+			
 		<cfset employeedropdown=model("skills").new()>
 		
 	</cffunction>
@@ -26,7 +42,6 @@
 		<cfset employeeShift.employeeid = params.employeeid>
 		<cfset employeeShift.shiftid = params.shiftid>
 		<cfset employeeShift.skillid = params.skillid>
-<!--- <cfdump var="#employeeShift#"><cfabort> --->
 		<cfset employeeShift.save()>
 		<cfset index()>
 		<cfset renderPage(action="index")>
@@ -36,18 +51,34 @@
 	<cffunction name="add">
 		<cfset business=model("business").new()>
 		<cfset businessdays=model("businessdays").new()>
-		<cfset hours=["8:00pm","9:00pm"]>
+		<cfset hours=["7:00am","8:00pm","9:00pm"]>
+		<cfset hoursValue=[7,20,21]>
+		
+		<cfset hoursOption = queryNew("starttime,endtime, number","VarChar,VarChar, Integer")>
+		<cfloop index="i" from="1" to="3">
+		<cfset queryAddRow(hoursOption)>
+		<cfset querySetCell(hoursOption, "starttime", hours[i])>
+		<cfset querySetCell(hoursOption, "endtime", hours[i])>
+		<cfset querySetCell(hoursOption, "number", hoursValue[i])>
+		</cfloop>		
 		<cfset timeHours=["40 hours","35 hours"]>
 		<cfset shiftHours=["4 hours","8 hours"]>
+		
+		<cfset shiftHoursValue=[4,8]>
+		<cfset shiftHoursOption = queryNew("shiftlength, number","VarChar, Integer")>
+		<cfloop index="i" from="1" to="2">
+		<cfset queryAddRow(shiftHoursOption)>
+		<cfset querySetCell(shiftHoursOption, "shiftlength", shiftHours[i])>
+		<cfset querySetCell(shiftHoursOption, "number", shiftHoursValue[i])>
+		</cfloop>	
+		
 	</cffunction>
 	<cffunction name="create">
 		<cfset business= model("business").new(params.business)>
 		<cfset business.save()>
 		<cfif business.hasErrors()>
+			<cfset add()>
 			<cfset businessdays=model("businessdays").new(params.businessdays)>
-			<cfset hours=["8:00pm","9:00pm"]>
-			<cfset timeHours=["40 hours","35 hours"]>
-			<cfset shiftHours=["4 hours","8 hours"]>
 			<cfset renderPage(action="add")>
 		<cfelse>
 			<cfset businessdays=model("businessdays").new(params.businessdays)>
@@ -56,40 +87,32 @@
 			<cfset session.user.businessid=business.id>
 			<cfset user=model("user").findByKey(session.user.id)>
 			<cfset user.businessid=business.id>
-<!--- 			<cfdump var="#session#"><cfabort> --->
 			<cfset user.save()>
 			<cfset flashInsert(success="You've successfully set up your business")>
+			
+			
+			
+			
+			
+			
+			
 			<cfset redirectTo(controller="business", action="index")>
 		</cfif>
 	</cffunction>
 	<cffunction name="edit">
+		<cfset add()>
 		<cfset business = model("business").findByKey(session.user.businessid)>
-		<cfset hours=["8:00pm","9:00pm"]>
-		<cfset timeHours=["40 hours","35 hours"]>
-		<cfset shiftHours=["4 hours","8 hours"]>
 		<cfset captchaError=false>
-		<cfset businessdays=model("businessdays").new()>
 	</cffunction>
 	<cffunction name="update">
 		<cfif validateCaptcha()>
-			
 			<cfset business= model("business").new(params.business)>
 			<cfset business.updateByKey(session.user.businessid, business)>	
-			
-			<cfset business = model("business").new(params.business)>
-			<cfset hours=["8:00pm","9:00pm"]>
-			<cfset timeHours=["40 hours","35 hours"]>
-			<cfset shiftHours=["4 hours","8 hours"]>
-			<cfset businessdays=model("businessdays").new()>
 			<cfset captchaError=false>
-			<cfif business.hasError()>
-				<cfset edit()>
-				<cfset renderPage(action="edit")> 
-
-			<cfelse>
-				<cfset redirectTo(controller="business", action="index")>
-			</cfif>
-			
+			<cfset businessdays=model("businessdays").new(params.businessdays)>
+			<cfset businessdays.businessid=session.user.businessid>
+			<cfset businessdays.save()>
+			<cfset redirectTo(controller="business", action="index")>
 		<cfelse>
 			<cfset edit()>
 			<cfset captchaError=true>
