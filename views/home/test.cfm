@@ -1,0 +1,1 @@
+<cfinclude template="../tests/test1.cfm">

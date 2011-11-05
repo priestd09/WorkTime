@@ -79,4 +79,10 @@
 	
 	</cffunction>
 	
+	<cffunction name="test">
+	
+		<cfinclude template="../tests/test1.cfm">
+	
+	</cffunction>
+	
 </cfcomponent>
