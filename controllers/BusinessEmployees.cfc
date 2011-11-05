@@ -4,10 +4,11 @@
 		<cfset newEmployee=model("employees").new(full)>		
 		<cfset submitType="add">
 		<cfset getSkills()>
-<!--- 		<cfdump var="#skills#"><cfabort> --->
-<!--- 		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)> --->
-		<cfset id = 0>
-		<cfset getEmployeesBySkill()>
+		<cfif skills.recordcount gt 0>
+			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+			<cfelse>
+				<cfset employees=QueryNew("")>
+		</cfif>
 		<cfset employeedropdown=model("skills").new()>
 	</cffunction>
 	
@@ -28,10 +29,7 @@
 			
 				
 		<cfif newEmployee.hasErrors()>
-			<cfset employeedropdown=model("skills").new()>
-			<cfset submitType="add">
-			<cfset getSkills()>
-			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+			<cfset index()>
 			<cfset renderpage(action="index")>
 		<cfelse>
 			<cfset business=model("businessdays").findAllByBusinessid(value=session.user.businessid)>
@@ -59,12 +57,7 @@
 				<cfset newSkill.save()>
 			</cfloop>
 			
-			<cfset full={time="full"}>
-			<cfset newEmployee=model("employees").new(full)>	
-			<cfset employeedropdown=model("skills").new()>
-			<cfset submitType="add">
-			<cfset getSkills()>
-			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
+			<cfset index()>
 			<cfset renderPage(action="index")>
 		</cfif>
 		
@@ -72,11 +65,9 @@
 	</cffunction>
 
 	<cffunction name="edit">
+		<cfset index()>
 		<cfset newEmployee=model("employees").findByKey(params.key)>
-		<cfset employeedropdown=model("skills").new()>
 		<cfset getSkillsByEmployee()>
-		<cfset getSkills()>
-		<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
 		<cfset submitType="update">
 		<cfset renderPage(action="index")>
 	</cffunction>
@@ -108,10 +99,7 @@
 		</cfloop>
 		
 		<cfif newEmployee.hasErrors()>
-			<cfset getSkills()>
-			<cfset getEmployeesBySkill(#skills.getrow(0).getcolumn(0)#)>
-			<cfset employeeskills=["Choose a Skill","Cashier","Stock"]>
-			<cfset employeedropdown=model("skills").new()>
+			<cfset index()>
 			<cfset submitType="update">
 			<cfset renderPage(action="index")>
 			<cfelse>

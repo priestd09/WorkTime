@@ -42,7 +42,7 @@
 		<cfset newUser.usertypeid = session.user.usertypeid>
 		<cfif session.user.usertypeid eq 1>
 		<!--- THIS WAS CAUSING STUPID ERROR- deals with the login --->
-<!--- 			<cfset newUser.businessid = session.user.businessid> --->
+			<cfset newUser.businessid = session.user.businessid>
 		</cfif>
 		<cfset newUser.save()>
 <!--- 		<cfset thisuser = model("user").findOneByEmail(value="#newUser.email#")> --->
@@ -67,7 +67,7 @@
 			<cfelse>
 				<cfset session.user.id = newUser.id>
 				<cfset flashInsert(success="You've successfully registered :)")>
-				<cfset redirectTo(controller="business", action="index")>
+				<cfset redirectTo(controller="business", action="add")>
 			</cfif>
 		</cfif>
 	
