@@ -1,13 +1,12 @@
-<p id="mainDate"><img id="arrL" src="img/arrL.png"/><span id="dateW" class="fFont">oct 31 - Nov 6</span><img id="arrR" src="img/arrR.png"/><a class="ssFont" href="">Today</a></p>
 <div id="calenderemployee">
 	<cfoutput>#includePartial(partial="shifts")#</cfoutput>	
 </div><!--close calender div -->
 
 <cfoutput>
-#linkto(text="Sign Out", controller="home", action="signout")#
 
 <div id="underCal">
-
+<a href="?format=pdf">Download PDF</a>
+<a href="?format=xml">View as XML</a>
 <div id="overAva">
 <span class="tFont">overall availability </span>
 <div id="staEndT">
@@ -16,97 +15,75 @@
 
 #startFormTag(action="saveOverall", key="1")#
 	#select(
-	    label="Monday", objectName="day1", property="start", options = options
+	    label="Monday", objectName="day1", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day1", property="end", options= options
+	    label="", objectName="day1", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day1", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="2")#
 	#select(
-	    label="Tuesday", objectName="day2", property="start", options = options
+	    label="Tuesday", objectName="day2", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day2", property="end", options= options
+	    label="", objectName="day2", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day2", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="3")#
 	#select(
-	    label="Wednesday", objectName="day3", property="start", options = options
+	    label="Wednesday", objectName="day3", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day3", property="end", options= options
+	    label="", objectName="day3", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day3", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="4")#
 	#select(
-	    label="Thursday", objectName="day4", property="start", options = options
+	    label="Thursday", objectName="day4", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day4", property="end", options= options
+	    label="", objectName="day4", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day4", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="5")#
 	#select(
-	    label="Friday", objectName="day5", property="start", options = options
+	    label="Friday", objectName="day5", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day5", property="end", options= options
+	    label="", objectName="day5", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day5", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="6")#
 	#select(
-	    label="Saturday", objectName="day6", property="start", options = options
+	    label="Saturday", objectName="day6", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day6", property="end", options= options
+	    label="", objectName="day6", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day6", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 #startFormTag(action="saveOverall", key="7")#
 	#select(
-	    label="Sunday", objectName="day7", property="start", options = options
+	    label="Sunday", objectName="day7", property="start", options = options, labelPlacement="before"
 	)#
 	#select(
-	    label="", objectName="day7", property="end", options= options
+	    label="", objectName="day7", property="end", options= options, labelPlacement="before"
 	)#
 	#hiddenField(objectName="day7", property="id")#
     #submitTag(value="Add Request", id="reqBtn", class="submitBtn bFont")#
 #endFormTag()#
 </div>
-<!---- Jason did this, I know, gross --->
-
-
-<!--- requesting for time off --->
-<!-----
-			<span id="sTimeM"><label class="fFont">from</label></span>
-				<form id="sTimespace">
-					<select name="sTime">
-						<option value="8:00">8:00am</option>
-					</select>
-				
-				</form>	
-			</div>
-			<div id="sTime2">
-			<span id="sTimeM2"><label class="fFont">to</label></span>
-				<form>
-					<select name="sTime">
-						<option value="12:00">12:00pm</option>
-					</select>
-				
-				</form>	
---->
 
 <div id="reqT">
 			
@@ -148,56 +125,3 @@
 </div>
 
 </cfoutput>
-<div id="reqT">
-					
-						<span class="tFont">request time off </span>
-					<div id="pDate">	
-						<p class="fFont">date</p>
-						<p><input id="dateField" class="empDate" type="text"><span id="cheB"><input id="cheB2" type="checkbox"></span></p>
-						<p class="sFont">example mm-dd-yy</p>
-					</div>
-					
-					<div id="pTime">	
-					
-					
-					
-					
-					
-					<div id="sTime">
-					<span id="sTimeM"><label class="fFont">from</label></span>
-						<form id="sTimespace">
-							<select name="sTime">
-								<option value="8:00">8:00am</option>
-							</select>
-						
-						</form>	
-					</div>
-					<div id="sTime2">
-					<span id="sTimeM2"><label class="fFont">to</label></span>
-						<form>
-							<select name="sTime">
-								<option value="12:00">12:00pm</option>
-							</select>
-						
-						</form>	
-					</div>
-				<!--
-		
-						<label class="fFont">to</label>
-						<p><select name="eTimes">
-							<option value="10:00pm">10:00pm</option>
-						</select>
-						</p>
--->
-
-					
-					</div>
-						<button id="reqBtn" class="submitBtn bFont" type="submit">request time off</button>
-
-				</div>
-
-
-			
-</div>
-		
-</div>	<!-- undercal -->

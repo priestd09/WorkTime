@@ -16,9 +16,11 @@
 		{
      		type: "POST",
 		    url: "/worktime/index.cfm/business/addEmployeeShift" + "?employeeid=" + employee +"&skillid=" + skill + "&shiftid=" + shift, // References "/say/hello?format=json"
-		    dataType: "json"
+		    dataType: "json",
+		    complete: function(response) {
+		    	location.reload(true);
+  			}
 		});
-		location.reload(true);
 	};
 
 	var init = function()

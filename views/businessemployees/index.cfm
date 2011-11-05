@@ -3,10 +3,15 @@
 <div id="createEmp">
 	<p id="cNew" class="tFont">create new employees</p><span  id="rentEmp" class="tFont">current employees</span>
 	<div id="newEmploy">	
+		<cfif flashKeyExists("error")>
+			<p class="errorMessage">
+			#flash("error")#
+			</p>
+		</cfif>
 		#startFormTag(action="#submitType#")#
 		#errorMessagesFor("newEmployee")#
 		<div id="newEmpSkill" class="ffFont">
-			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit">#linkTo(text="edit",controller="businessemployees",action="editcats")#
+			<p><span class="fFont">business categories</span><span class="ssFont" id="bEdit">#linkTo(text="add/edit",controller="businessemployees",action="editcats")#
 </span></p>
 			<cfloop query="skills">
 				<cfif IsDefined("skills.id")>

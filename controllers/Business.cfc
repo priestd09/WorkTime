@@ -18,11 +18,15 @@
 
 			<cfif IsDefined("params.key")>
 				<cfset skillid=params.key>
-				<cfelse>
+				<cfset updateList(skillid)>
+
+				<cfelseif skills.recordcount gt 0 >
 					<cfset skillid=#skills.getrow(0).getcolumn(0)#>
 					<cfset updateList(skillid)>
+				<cfelse>
+					<cfset employeedropdown=model("skills").new()>
+					<cfset employees=QueryNew("")>
 			</cfif>
-			<cfset updateList(skillid)>
 	</cffunction>
 	
 	<cffunction name="addEmployeeShift">
@@ -31,8 +35,8 @@
 		<cfset employeeShift.shiftid = params.shiftid>
 		<cfset employeeShift.skillid = params.skillid>
 		<cfset employeeShift.save()>
-		<cfset renderWith(action="index")>
-
+		<cfset index()>
+		<cfset renderPage(action="index")>
 	</cffunction>
 	
 	

@@ -326,7 +326,6 @@ background-color:#fff;
 -moz-border-radius:3px;
 border-radius:3px;
 margin-left:20px;
-width: 960px;
 }
 .week{border-left:1px solid #3D5166;
 float: left;
@@ -388,19 +387,25 @@ margin-top:30px;
 
 #overAva{
 float:left; 
-margin-left: 60px;
-margin-right: 50px;
+margin-left: 20px;
+margin-right: 20px;
+font: 10pt helvetica,arial;
+color:#3D5166;
 }
-
+#overAva label {
+	width:75px;
+	float: left;
+}
 #overAva input{
-width:50px;
-margin-left: 30px; 
-margin-right: 25px;
-border: 2px solid #3D5166;
--moz-border-radius:3px;
-border-radius:3px;
-margin-bottom:12px;
-padding:3px 5px 5px 5px;
+float: left;
+margin: 0
+}
+#overAva form {
+	margin: 5px 0;
+}
+#overAva select {
+	float: left;
+	margin-right: 10px;
 }
 
 #daysD{float: left;
@@ -423,13 +428,16 @@ margin-right:95px;
 }
 #reqT{
 float:left; 
-margin-right:50px;
-/* height:350px; */
+margin-right:20px;
+width:300px;
+ height:350px; 
 }
 
 .currentR{
 float: left;
-margin-left: 50px;
+margin-left: 20px;
+width:300px;
+
 
 }
 .containerReq{
