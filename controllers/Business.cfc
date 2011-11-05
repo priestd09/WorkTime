@@ -15,20 +15,9 @@
 		<cfelse>
 			<cfset redirectTo(controller="business", action="add")>
 		</cfif>
-			<cfset business = model("business").findAll(where="id=#session.user.businessid#", include="businessdays")>
-			<cfdump var="#business#"><cfabort>
-			<!---
-<cfset week=model("weeks").new()>
-			<cfset week.businessid = session.user.businessid>
-			<cfset week.save()>	
+			<cfset business = model("business").findByKey(session.user.businessid)>
+			<cfset businessDays = model("businessdays").findOneByBusinessid(session.user.businessid)>
 			
-			<cfloop from="1" to="7" index="i">
-				<cfset day=model("days").new()>
-				<cfset day.weekid = week.id>
-				<cfset day.day = i>
-				<cfset day.save()>
-			</cfloop>
---->
 					
 			
 			
@@ -51,6 +40,9 @@
 	<cffunction name="add">
 		<cfset business=model("business").new()>
 		<cfset businessdays=model("businessdays").new()>
+		<!------ POPULATE SELECTS WITH MORE VALUES---->
+		
+		
 		<cfset hours=["7:00am","8:00pm","9:00pm"]>
 		<cfset hoursValue=[7,20,21]>
 		
@@ -87,11 +79,32 @@
 			<cfset session.user.businessid=business.id>
 			<cfset user=model("user").findByKey(session.user.id)>
 			<cfset user.businessid=business.id>
-			<cfset user.save()>
-			<cfset flashInsert(success="You've successfully set up your business")>
+			<cfset user.save()>			
 			
+			<cfset week=model("weeks").new()>
+			<cfset week.businessid = session.user.businessid>
+			<cfset week.save()>	
 			
-			
+			<cfloop from="1" to="7" index="i">
+				<cfset day=model("days").new()>
+				<cfset day.weekid = week.id>
+				<cfset day.day = i>
+				<cfset day.save()>
+				<cfset shiftL = business.shiftlength>
+				<cfset start = businessDays.starttime>
+				<cfset end = businessDays.endtime>
+				<cfloop condition="start lt end">
+					<cfset shift=model("shifts").new()>
+					<cfset shift.starttime = start>
+					<cfset start += shiftL>
+					<cfif start gt end>
+						<cfset start = end>
+					</cfif>
+					<cfset shift.endtime = start>
+					<cfset shift.dayid = day.id>
+					<cfset shift.save()>
+				</cfloop>
+			</cfloop>
 			
 			
 			
