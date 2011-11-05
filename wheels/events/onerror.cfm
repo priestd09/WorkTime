@@ -1,3 +1,4 @@
+
 <cffunction name="onError" returntype="void" access="public" output="true">
 	<cfargument name="exception" type="any" required="true">
 	<cfargument name="eventName" type="any" required="true">
@@ -18,9 +19,11 @@
 	</cfoutput>
 </cffunction>
 
+
 <cffunction name="$runOnError" returntype="string" access="public" output="false">
 	<cfargument name="exception" type="any" required="true">
 	<cfargument name="eventName" type="any" required="true">
+
 	<cfscript>
 		var loc = {};
 
@@ -71,4 +74,5 @@
 		}
 	</cfscript>
 	<cfreturn loc.returnValue>
+
 </cffunction>

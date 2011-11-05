@@ -81,4 +81,12 @@
 	
 	</cffunction>
 	
+	<cffunction name="test">
+	
+		<cfset request.employees=model("employees")>
+	
+	</cffunction>
+	
+
+	
 </cfcomponent>

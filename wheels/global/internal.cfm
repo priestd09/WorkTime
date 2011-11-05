@@ -255,7 +255,7 @@
 </cffunction>
 
 <cffunction name="$abortInvalidRequest" returntype="void" access="public" output="false">
-	<cfscript>
+	<!----<cfscript>
 		var applicationPath = Replace(GetCurrentTemplatePath(), "\", "/", "all");
 		var callingPath = Replace(GetBaseTemplatePath(), "\", "/", "all");
 		if (ListLen(callingPath, "/") GT ListLen(applicationPath, "/") || GetFileFromPath(callingPath) == "root.cfm")
@@ -264,7 +264,7 @@
 			$includeAndOutput(template="#application.wheels.eventPath#/onmissingtemplate.cfm");
 			$abort();
 		}
-	</cfscript>
+	</cfscript>------>
 </cffunction>
 
 <cffunction name="$URLEncode" returntype="string" access="public" output="false">
