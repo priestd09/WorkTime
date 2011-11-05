@@ -26,7 +26,7 @@
 		<cfset employeeShift.employeeid = params.employeeid>
 		<cfset employeeShift.shiftid = params.shiftid>
 		<cfset employeeShift.skillid = params.skillid>
-<!--- 				<cfdump var="#employeeShift#"><cfabort> --->
+<!--- 	<cfdump var="#employeeShift#"><cfabort> --->
 		<cfset employeeShift.save()>
 		<cfset index()>
 		<cfset renderPage(action="index")>
@@ -56,9 +56,29 @@
 			<cfset session.user.businessid=business.id>
 			<cfset user=model("user").findByKey(session.user.id)>
 			<cfset user.businessid=business.id>
-<!--- 			<cfdump var="#session#"><cfabort> --->
 			<cfset user.save()>
 			<cfset flashInsert(success="You've successfully set up your business")>
+			
+			<cfset times=[800, 1200, 1600, 2000, 2400]>
+			
+			<cfloop from="1" to="7" index="i">
+				<cfset days=model("days").new()>
+				<cfset days.day = i>
+				<!----CHANGE THIS WEEKS ID TO DYNAMIC--->
+				<cfset days.weekid = 11>
+				<cfset days.save()>
+				
+				<!----ONCE TIME IS FIXED CHANGE THE CALCULATION OF SHIFT TIME---->
+				<cfloop from="1" to="4" index="z">
+					<cfset shif=model("shifts").new()>
+					<cfset shif.dayid = days.id>
+					<cfset shif.starttime = times[z]>
+					<cfset shif.endtime = times[z]>
+					<cfset shif.save()>
+				</cfloop>
+				
+			</cfloop>
+			
 			<cfset redirectTo(controller="business", action="index")>
 		</cfif>
 	</cffunction>
@@ -135,6 +155,8 @@
 		<cfset saturday = ArrayNew(1)>
 		<cfset sunday = ArrayNew(1)>
 		
+<!--- 		<cfdump var="#shifts#"><cfabort> --->
+		
 		<cfloop query="shifts">
 			<cfswitch expression="#shifts.day#">
 				<cfcase value="1">				
@@ -181,10 +203,10 @@
 	
 	
 	<cffunction name="getEmployeesByShift">
-		
 		<cfloop collection=#weeks# item="day">
 			
 			<cfloop array="#weeks[day]#" index="shift">
+				
 				
 				<cfset employee=model("employeeshift").findAll(include="employee,shift,skill", where="shiftid=#shift.id#")>
 					

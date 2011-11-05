@@ -67,7 +67,7 @@
 			<cfelse>
 				<cfset session.user.id = newUser.id>
 				<cfset flashInsert(success="You've successfully registered :)")>
-				<cfset redirectTo(controller="business", action="index")>
+				<cfset redirectTo(controller="business", action="add")>
 			</cfif>
 		</cfif>
 	
