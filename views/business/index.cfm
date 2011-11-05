@@ -35,10 +35,9 @@
 	        #submitTag(class="submitBtn bFont",value="Update")#
 		#endFormTag()#
 
-<!--- 	<cfdump var="#employees#"><cfabort> --->
-			<cfloop query="employees">
-					<p class="#employees.employeesid# #employees.employeesid#">#employees.name#</p>
-			</cfloop>
+		<cfloop query="employees">
+			<p class="draggEmp" employeeid="#employees.employeesid#" skillid="#employees.employeesid#">#employees.name#</p>
+		</cfloop>
 			
 	</div>
 	<!----

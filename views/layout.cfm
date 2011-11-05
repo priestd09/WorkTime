@@ -20,9 +20,16 @@
 				<div class="move"><p id="imgAdjLo"><img src="/worktime/images/lo.jpg"/></p></div>
 			</div>
 			<cfoutput>#includeContent()#</cfoutput>
+			
+			
 		</div>	<!-- content -->
 		</div><!-- closewrapper -->
 		
-		
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js' type='text/javascript'></script>
+    	<script src='javascripts/jquery-ui-1.7.3.custom.min.js' type='text/javascript'></script>
+
+    	<script src='javascripts/main.js' type='text/javascript'></script>
+
+    			
 	</body>
 </html>
