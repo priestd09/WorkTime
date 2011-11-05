@@ -18,16 +18,12 @@
 		<cfset StructDelete(newEmployee,"id")>
 		<cfset newEmployee.save()>
 		
-		<!---
-<cfset
-		    sendEmail(
-		        from="jlvanderslice@gmail.com",
-		        to=params.newEmployee.email,
-		        template="emailtemplate",
-		        subject="Thank You for Becoming a Member"
-		    )
-		>
---->
+		<cftry>
+			<cfset sendEmail(from="jlvanderslice@gmail.com",to=params.newEmployee.email,template="emailtemplate",subject="Thank You for Becoming a Member")>
+			<cfcatch>
+			
+			</cfcatch>
+		</cftry>
 			
 				
 		<cfif newEmployee.hasErrors()>
@@ -50,15 +46,17 @@
 					</cfloop>
 				</cfif>
 			</cfloop>
-				
-			<cfset checkedSkills2=params.checkedSkills>
-			<cfloop collection=#checkedSkills2# item="skill">
-				<cfset newSkill=model("employeeskill").new()>
-				<cfset newSkill.employeesid=newEmployee.id>
-				<cfset newSkill.skillid=skill>
-				<cfset newSkill.save()>
-			</cfloop>
-			
+			<cfif IsDefined("params.checkedSkills")>
+			<cfset checkedSkills2=params.checkedSkills>		
+				<cfloop collection=#checkedSkills2# item="skill">
+					<cfset newSkill=model("employeeskill").new()>
+					<cfset newSkill.employeesid=newEmployee.id>
+					<cfset newSkill.skillid=skill>
+					<cfset newSkill.save()>
+				</cfloop>
+				<cfelse>
+					<cfset flashInsert(error="You must select a skill for the employee")>
+			</cfif>		
 			<cfset index()>
 			<cfset renderPage(action="index")>
 		</cfif>
