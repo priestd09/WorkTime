@@ -84,8 +84,10 @@
 	
 	<cffunction name="test">
 	
-		<cfinclude template="../tests/test1.cfm">
+		<cfset request.employees=model("employees")>
 	
 	</cffunction>
+	
+
 	
 </cfcomponent>
